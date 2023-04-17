@@ -80,13 +80,13 @@ public void login(){
         UN = new app.bolivia.swing.JCTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        PD = new rojerusan.RSPasswordTextPlaceHolder();
         jLabel7 = new javax.swing.JLabel();
         LOCK = new javax.swing.JLabel();
         LOGIN = new necesario.RSMaterialButtonCircle();
         LOGIN1 = new necesario.RSMaterialButtonCircle();
         jLabel13 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        PD = new rojerusan.RSPasswordTextPlaceHolder();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -145,19 +145,6 @@ public void login(){
         jLabel6.setText("PASSWORD:");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 90, 30));
 
-        PD.setBackground(new java.awt.Color(246, 55, 55));
-        PD.setBorder(null);
-        PD.setForeground(new java.awt.Color(0, 0, 0));
-        PD.setOpaque(false);
-        PD.setPhColor(new java.awt.Color(0, 0, 0));
-        PD.setPlaceholder("ENTER PASSWORD");
-        PD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PDActionPerformed(evt);
-            }
-        });
-        jPanel2.add(PD, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, -1, -1));
-
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user (5).png"))); // NOI18N
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 50, 40));
@@ -189,6 +176,15 @@ public void login(){
         jLabel15.setForeground(new java.awt.Color(25, 20, 20));
         jLabel15.setText("_______________________________");
         jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, 220, 30));
+
+        PD.setBackground(new java.awt.Color(246, 55, 55));
+        PD.setBorder(null);
+        PD.setForeground(new java.awt.Color(0, 0, 0));
+        PD.setFont(new java.awt.Font("Yu Gothic UI", 1, 12)); // NOI18N
+        PD.setOpaque(false);
+        PD.setPhColor(new java.awt.Color(0, 0, 0));
+        PD.setPlaceholder("ENTER PASSWORD");
+        jPanel2.add(PD, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, -1, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 0, 375, 495));
 
