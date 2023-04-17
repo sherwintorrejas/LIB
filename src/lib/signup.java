@@ -122,6 +122,10 @@ if(contact.equals("")){
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -161,14 +165,17 @@ if(contact.equals("")){
         jLabel4.setText("Please create your account");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, -1, -1));
 
+        UN.setBackground(new java.awt.Color(246, 55, 55));
+        UN.setBorder(null);
         UN.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        UN.setOpaque(false);
         UN.setPlaceholder("ENTER USERNAME");
         UN.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 UNFocusLost(evt);
             }
         });
-        jPanel2.add(UN, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, -1, -1));
+        jPanel2.add(UN, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 200, -1));
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 245, 102));
@@ -182,7 +189,10 @@ if(contact.equals("")){
         jLabel6.setText("PASSWORD:");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 90, 30));
 
+        PD.setBackground(new java.awt.Color(246, 55, 55));
+        PD.setBorder(null);
         PD.setForeground(new java.awt.Color(0, 0, 0));
+        PD.setOpaque(false);
         PD.setPhColor(new java.awt.Color(0, 0, 0));
         PD.setPlaceholder("ENTER PASSWORD");
         PD.addActionListener(new java.awt.event.ActionListener() {
@@ -231,15 +241,26 @@ if(contact.equals("")){
         });
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 40, 30));
 
+        EMAIL.setBackground(new java.awt.Color(246, 55, 55));
+        EMAIL.setBorder(null);
+        EMAIL.setOpaque(false);
         EMAIL.setPlaceholder("ENTER EMAIL");
         EMAIL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EMAILActionPerformed(evt);
             }
         });
-        jPanel2.add(EMAIL, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, -1, -1));
+        jPanel2.add(EMAIL, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 200, -1));
 
+        CONTACT.setBackground(new java.awt.Color(246, 55, 55));
+        CONTACT.setBorder(null);
+        CONTACT.setOpaque(false);
         CONTACT.setPlaceholder("ENTER CONTACT");
+        CONTACT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CONTACTActionPerformed(evt);
+            }
+        });
         jPanel2.add(CONTACT, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -261,6 +282,22 @@ if(contact.equals("")){
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("USERNAME:");
         jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 90, 30));
+
+        jLabel13.setForeground(new java.awt.Color(25, 20, 20));
+        jLabel13.setText("_______________________________");
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 320, 200, 30));
+
+        jLabel14.setForeground(new java.awt.Color(25, 20, 20));
+        jLabel14.setText("_________________________________");
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 200, 30));
+
+        jLabel17.setForeground(new java.awt.Color(25, 20, 20));
+        jLabel17.setText("_________________________________");
+        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 200, 30));
+
+        jLabel15.setForeground(new java.awt.Color(25, 20, 20));
+        jLabel15.setText("_________________________________");
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 200, 30));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 0, 375, 495));
 
@@ -316,6 +353,10 @@ if(contact.equals("")){
        }
     }//GEN-LAST:event_UNFocusLost
 
+    private void CONTACTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CONTACTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CONTACTActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -364,6 +405,10 @@ if(contact.equals("")){
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

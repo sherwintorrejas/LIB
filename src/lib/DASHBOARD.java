@@ -233,6 +233,9 @@ public class DASHBOARD extends javax.swing.JFrame {
 
         LO.setBackground(new java.awt.Color(178, 34, 34));
         LO.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LOMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 LOMouseEntered(evt);
             }
@@ -437,6 +440,14 @@ public class DASHBOARD extends javax.swing.JFrame {
         issuebook as =new issuebook();
         maindesk.add(as).setVisible(true);
     }//GEN-LAST:event_IBMouseClicked
+
+    private void LOMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LOMouseClicked
+         int a = JOptionPane.showConfirmDialog(null,"ARE YOU SURE YOU WANT TO LOGOUT?");
+        if(a == JOptionPane.YES_OPTION){
+            login in = new login ();
+            in.setVisible(true);
+            this.dispose();}
+    }//GEN-LAST:event_LOMouseClicked
 
     /**
      * @param args the command line arguments

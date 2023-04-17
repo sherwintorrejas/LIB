@@ -44,6 +44,7 @@ private Connection connection;
   GEN_RE.setText(rs.getString("GENRE"));
   ED_D.setText(rs.getString("EDITION"));
   QUANT.setText(rs.getString("QUANTITY"));
+   bookerror.setText("");
   }else{
   bookerror.setText("INVALID ISBN");
   }
@@ -68,6 +69,7 @@ private Connection connection;
   course.setText(rs.getString("COURSE"));
   yr.setText(rs.getString("YEAR"));
   contact.setText(rs.getString("CONTACT"));
+  studenterror.setText("");
   }else{
   studenterror.setText("INVALID STUDENT ID");
           }
@@ -291,7 +293,7 @@ String studenti = studentid.getText();
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/graduation (1).png"))); // NOI18N
-        jLabel2.setText("ADD STUDENT");
+        jLabel2.setText("STUDENT DETAILS");
         jPanel10.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 220, 40));
 
         id.setFont(new java.awt.Font("Yu Gothic UI", 1, 13)); // NOI18N
@@ -338,7 +340,7 @@ String studenti = studentid.getText();
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/book (9).png"))); // NOI18N
-        jLabel8.setText("ADD STUDENT");
+        jLabel8.setText("BOOK DETAILS");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 220, 40));
 
         jLabel9.setFont(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N

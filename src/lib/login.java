@@ -85,6 +85,8 @@ public void login(){
         LOCK = new javax.swing.JLabel();
         LOGIN = new necesario.RSMaterialButtonCircle();
         LOGIN1 = new necesario.RSMaterialButtonCircle();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -124,8 +126,10 @@ public void login(){
         jLabel4.setText("Please login to you account");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, -1, -1));
 
+        UN.setBackground(new java.awt.Color(246, 55, 55));
         UN.setBorder(null);
         UN.setFont(new java.awt.Font("Yu Gothic UI", 1, 12)); // NOI18N
+        UN.setOpaque(false);
         UN.setPlaceholder("ENTER USERNAME");
         jPanel2.add(UN, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, -1, -1));
 
@@ -141,7 +145,10 @@ public void login(){
         jLabel6.setText("PASSWORD:");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 90, 30));
 
+        PD.setBackground(new java.awt.Color(246, 55, 55));
+        PD.setBorder(null);
         PD.setForeground(new java.awt.Color(0, 0, 0));
+        PD.setOpaque(false);
         PD.setPhColor(new java.awt.Color(0, 0, 0));
         PD.setPlaceholder("ENTER PASSWORD");
         PD.addActionListener(new java.awt.event.ActionListener() {
@@ -174,6 +181,14 @@ public void login(){
             }
         });
         jPanel2.add(LOGIN1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 370, 160, 50));
+
+        jLabel13.setForeground(new java.awt.Color(25, 20, 20));
+        jLabel13.setText("_______________________________");
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, 220, 30));
+
+        jLabel15.setForeground(new java.awt.Color(25, 20, 20));
+        jLabel15.setText("_______________________________");
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, 220, 30));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 0, 375, 495));
 
@@ -243,6 +258,8 @@ login();
     private rojerusan.RSPasswordTextPlaceHolder PD;
     private app.bolivia.swing.JCTextField UN;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
