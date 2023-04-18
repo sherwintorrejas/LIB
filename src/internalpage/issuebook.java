@@ -244,6 +244,8 @@ String studenti = studentid.getText();
         ISSUEDATE = new com.toedter.calendar.JDateChooser();
         studentid = new app.bolivia.swing.JCTextField();
         rSMaterialButtonCircle1 = new necesario.RSMaterialButtonCircle();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -405,8 +407,12 @@ String studenti = studentid.getText();
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 300, 540));
 
+        isbn.setBackground(new java.awt.Color(0, 58, 140));
+        isbn.setBorder(null);
+        isbn.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         isbn.setFont(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
-        isbn.setPlaceholder("PLEASE ENTER ISBN");
+        isbn.setOpaque(false);
+        isbn.setPlaceholder("ENTER ISBN");
         isbn.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 isbnFocusLost(evt);
@@ -455,8 +461,12 @@ String studenti = studentid.getText();
         ISSUEDATE.setFont(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
         jPanel1.add(ISSUEDATE, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 310, 220, 30));
 
+        studentid.setBackground(new java.awt.Color(0, 58, 140));
+        studentid.setBorder(null);
+        studentid.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         studentid.setFont(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
-        studentid.setPlaceholder("PLEASE ENTER STUDENT ID");
+        studentid.setOpaque(false);
+        studentid.setPlaceholder("ENTER STUDENT ID");
         studentid.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 studentidFocusLost(evt);
@@ -471,6 +481,14 @@ String studenti = studentid.getText();
             }
         });
         jPanel1.add(rSMaterialButtonCircle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 420, 270, 70));
+
+        jLabel19.setForeground(new java.awt.Color(25, 20, 20));
+        jLabel19.setText("_______________________________");
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 230, 210, 40));
+
+        jLabel20.setForeground(new java.awt.Color(25, 20, 20));
+        jLabel20.setText("_______________________________");
+        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 160, 210, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 540));
 
@@ -541,7 +559,9 @@ String studenti = studentid.getText();
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

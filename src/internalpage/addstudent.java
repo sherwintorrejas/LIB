@@ -121,6 +121,13 @@ if(course.equals("")){
         UPDATE = new necesario.RSMaterialButtonCircle();
         ECT = new app.bolivia.swing.JCTextField();
         jLabel7 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        line = new javax.swing.JLabel();
+        line1 = new javax.swing.JLabel();
+        line2 = new javax.swing.JLabel();
+        line3 = new javax.swing.JLabel();
+        line4 = new javax.swing.JLabel();
+        line5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         studentdet = new rojeru_san.complementos.RSTableMetro();
@@ -133,8 +140,11 @@ if(course.equals("")){
         jPanel10.setBackground(new java.awt.Color(204, 0, 0));
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        ID.setBackground(new java.awt.Color(204, 0, 0));
+        ID.setBorder(null);
         ID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         ID.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        ID.setOpaque(false);
         ID.setPlaceholder("ENTER ID");
         ID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,8 +159,11 @@ if(course.equals("")){
         jLabel1.setText("ID:");
         jPanel10.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 120, 32));
 
+        EN.setBackground(new java.awt.Color(204, 0, 0));
+        EN.setBorder(null);
         EN.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         EN.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        EN.setOpaque(false);
         EN.setPlaceholder("ENTER NAME");
         jPanel10.add(EN, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 270, -1));
 
@@ -166,13 +179,19 @@ if(course.equals("")){
         jLabel4.setText("LASTNAME:");
         jPanel10.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 120, 32));
 
+        ELN.setBackground(new java.awt.Color(204, 0, 0));
+        ELN.setBorder(null);
         ELN.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         ELN.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        ELN.setOpaque(false);
         ELN.setPlaceholder("ENTER LASTNAME");
         jPanel10.add(ELN, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 270, -1));
 
+        EC.setBackground(new java.awt.Color(204, 0, 0));
+        EC.setBorder(null);
         EC.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         EC.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        EC.setOpaque(false);
         EC.setPlaceholder("ENTER COURSE");
         EC.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -193,8 +212,11 @@ if(course.equals("")){
         jLabel6.setText("YEAR:");
         jPanel10.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 120, 32));
 
+        EY.setBackground(new java.awt.Color(204, 0, 0));
+        EY.setBorder(null);
         EY.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         EY.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        EY.setOpaque(false);
         EY.setPlaceholder("ENTER YEAR");
         EY.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -227,8 +249,11 @@ if(course.equals("")){
         });
         jPanel10.add(UPDATE, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 459, 100, 50));
 
+        ECT.setBackground(new java.awt.Color(204, 0, 0));
+        ECT.setBorder(null);
         ECT.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         ECT.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        ECT.setOpaque(false);
         ECT.setPlaceholder("ENTER CONTACT");
         ECT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -247,6 +272,34 @@ if(course.equals("")){
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("CONTACT:");
         jPanel10.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 110, 32));
+
+        jLabel20.setForeground(new java.awt.Color(25, 20, 20));
+        jLabel20.setText("_______________________________");
+        jPanel10.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 60, 210, 140));
+
+        line.setForeground(new java.awt.Color(25, 20, 20));
+        line.setText("_____________________________________________");
+        jPanel10.add(line, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 290, 30));
+
+        line1.setForeground(new java.awt.Color(25, 20, 20));
+        line1.setText("_____________________________________________");
+        jPanel10.add(line1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 290, 30));
+
+        line2.setForeground(new java.awt.Color(25, 20, 20));
+        line2.setText("_____________________________________________");
+        jPanel10.add(line2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 290, 30));
+
+        line3.setForeground(new java.awt.Color(25, 20, 20));
+        line3.setText("_____________________________________________");
+        jPanel10.add(line3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 290, 30));
+
+        line4.setForeground(new java.awt.Color(25, 20, 20));
+        line4.setText("_____________________________________________");
+        jPanel10.add(line4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 290, 30));
+
+        line5.setForeground(new java.awt.Color(25, 20, 20));
+        line5.setText("_____________________________________________");
+        jPanel10.add(line5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 290, 30));
 
         jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 540));
 
@@ -396,6 +449,7 @@ if(course.equals("")){
     private necesario.RSMaterialButtonCircle UPDATE;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -404,6 +458,12 @@ if(course.equals("")){
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel line;
+    private javax.swing.JLabel line1;
+    private javax.swing.JLabel line2;
+    private javax.swing.JLabel line3;
+    private javax.swing.JLabel line4;
+    private javax.swing.JLabel line5;
     private rojeru_san.complementos.RSTableMetro studentdet;
     // End of variables declaration//GEN-END:variables
 }

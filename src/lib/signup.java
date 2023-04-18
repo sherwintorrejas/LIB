@@ -107,25 +107,25 @@ if(contact.equals("")){
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        UN = new app.bolivia.swing.JCTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         PD = new rojerusan.RSPasswordTextPlaceHolder();
         jLabel7 = new javax.swing.JLabel();
         LOCK = new javax.swing.JLabel();
-        LOGIN = new necesario.RSMaterialButtonCircle();
-        SIGNUP = new necesario.RSMaterialButtonCircle();
         jLabel8 = new javax.swing.JLabel();
-        EMAIL = new app.bolivia.swing.JCTextField();
-        CONTACT = new app.bolivia.swing.JCTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        UN = new app.bolivia.swing.JCTextField();
+        EMAIL = new app.bolivia.swing.JCTextField();
+        CONTACT = new app.bolivia.swing.JCTextField();
         jLabel14 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        SIGN_UP = new necesario.RSMaterialButtonCircle();
+        LOG_IN = new necesario.RSMaterialButtonCircle();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -165,18 +165,6 @@ if(contact.equals("")){
         jLabel4.setText("Please create your account");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, -1, -1));
 
-        UN.setBackground(new java.awt.Color(246, 55, 55));
-        UN.setBorder(null);
-        UN.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        UN.setOpaque(false);
-        UN.setPlaceholder("ENTER USERNAME");
-        UN.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                UNFocusLost(evt);
-            }
-        });
-        jPanel2.add(UN, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 200, -1));
-
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 245, 102));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -192,6 +180,7 @@ if(contact.equals("")){
         PD.setBackground(new java.awt.Color(246, 55, 55));
         PD.setBorder(null);
         PD.setForeground(new java.awt.Color(0, 0, 0));
+        PD.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
         PD.setOpaque(false);
         PD.setPhColor(new java.awt.Color(0, 0, 0));
         PD.setPlaceholder("ENTER PASSWORD");
@@ -210,27 +199,6 @@ if(contact.equals("")){
         LOCK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/padlock.png"))); // NOI18N
         jPanel2.add(LOCK, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 300, 30, 40));
 
-        LOGIN.setText("LOGIN");
-        LOGIN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LOGINActionPerformed(evt);
-            }
-        });
-        jPanel2.add(LOGIN, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 430, 160, 50));
-
-        SIGNUP.setText("SIGN UP");
-        SIGNUP.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SIGNUPMouseClicked(evt);
-            }
-        });
-        SIGNUP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SIGNUPActionPerformed(evt);
-            }
-        });
-        jPanel2.add(SIGNUP, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 370, 160, 50));
-
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("X");
@@ -240,28 +208,6 @@ if(contact.equals("")){
             }
         });
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 40, 30));
-
-        EMAIL.setBackground(new java.awt.Color(246, 55, 55));
-        EMAIL.setBorder(null);
-        EMAIL.setOpaque(false);
-        EMAIL.setPlaceholder("ENTER EMAIL");
-        EMAIL.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EMAILActionPerformed(evt);
-            }
-        });
-        jPanel2.add(EMAIL, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 200, -1));
-
-        CONTACT.setBackground(new java.awt.Color(246, 55, 55));
-        CONTACT.setBorder(null);
-        CONTACT.setOpaque(false);
-        CONTACT.setPlaceholder("ENTER CONTACT");
-        CONTACT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CONTACTActionPerformed(evt);
-            }
-        });
-        jPanel2.add(CONTACT, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/telephone.png"))); // NOI18N
@@ -285,19 +231,76 @@ if(contact.equals("")){
 
         jLabel13.setForeground(new java.awt.Color(25, 20, 20));
         jLabel13.setText("_______________________________");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 320, 200, 30));
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 200, 30));
+
+        UN.setBackground(new java.awt.Color(246, 55, 55));
+        UN.setBorder(null);
+        UN.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        UN.setOpaque(false);
+        UN.setPlaceholder("ENTER USERNAME");
+        UN.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                UNFocusLost(evt);
+            }
+        });
+        UN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UNActionPerformed(evt);
+            }
+        });
+        jPanel2.add(UN, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, -1, -1));
+
+        EMAIL.setBackground(new java.awt.Color(246, 55, 55));
+        EMAIL.setBorder(null);
+        EMAIL.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        EMAIL.setOpaque(false);
+        EMAIL.setPlaceholder("ENTER EMAIL");
+        jPanel2.add(EMAIL, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, -1, -1));
+
+        CONTACT.setBackground(new java.awt.Color(246, 55, 55));
+        CONTACT.setBorder(null);
+        CONTACT.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        CONTACT.setOpaque(false);
+        CONTACT.setPlaceholder(" ENTER CONTACT");
+        jPanel2.add(CONTACT, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
 
         jLabel14.setForeground(new java.awt.Color(25, 20, 20));
-        jLabel14.setText("_________________________________");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 200, 30));
-
-        jLabel17.setForeground(new java.awt.Color(25, 20, 20));
-        jLabel17.setText("_________________________________");
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 200, 30));
+        jLabel14.setText("_______________________________");
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 320, 200, 30));
 
         jLabel15.setForeground(new java.awt.Color(25, 20, 20));
-        jLabel15.setText("_________________________________");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 200, 30));
+        jLabel15.setText("_______________________________");
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 200, 30));
+
+        jLabel16.setForeground(new java.awt.Color(25, 20, 20));
+        jLabel16.setText("_______________________________");
+        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 200, 30));
+
+        SIGN_UP.setText("SIGN UP");
+        SIGN_UP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SIGN_UPMouseClicked(evt);
+            }
+        });
+        SIGN_UP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SIGN_UPActionPerformed(evt);
+            }
+        });
+        jPanel2.add(SIGN_UP, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 160, 50));
+
+        LOG_IN.setText("LOGIN");
+        LOG_IN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LOG_INMouseClicked(evt);
+            }
+        });
+        LOG_IN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LOG_INActionPerformed(evt);
+            }
+        });
+        jPanel2.add(LOG_IN, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 360, 160, 50));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 0, 375, 495));
 
@@ -316,21 +319,8 @@ if(contact.equals("")){
     }//GEN-LAST:event_PDActionPerformed
 
     private void LOGINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LOGINActionPerformed
-       login in= new login();
-        in.setVisible(true);
-        this. dispose();
+      
     }//GEN-LAST:event_LOGINActionPerformed
-
-    private void SIGNUPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SIGNUPActionPerformed
-          if(validation()== true){
-      if(duplicateuser()== false){
-           signup();
-      }else{
-      JOptionPane.showMessageDialog(this, "USERNAME ALREADY EXIST");
-      }
-      }
-        
-    }//GEN-LAST:event_SIGNUPActionPerformed
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
         System.exit(0);
@@ -341,10 +331,7 @@ if(contact.equals("")){
     }//GEN-LAST:event_EMAILActionPerformed
 
     private void SIGNUPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SIGNUPMouseClicked
-       JOptionPane.showMessageDialog(null,"SIGN UP SUCCESSFUL!!");
-        login in= new login();
-        in.setVisible(true);
-        this. dispose();
+
     }//GEN-LAST:event_SIGNUPMouseClicked
 
     private void UNFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_UNFocusLost
@@ -356,6 +343,41 @@ if(contact.equals("")){
     private void CONTACTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CONTACTActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CONTACTActionPerformed
+
+    private void UNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UNActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UNActionPerformed
+
+    private void SIGN_UPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SIGN_UPActionPerformed
+        if(validation()== true){
+      if(duplicateuser()== false){
+           signup();
+      }else{
+      JOptionPane.showMessageDialog(this, "USERNAME ALREADY EXIST");
+      }
+      }
+        
+      
+    }//GEN-LAST:event_SIGN_UPActionPerformed
+
+    private void SIGN_UPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SIGN_UPMouseClicked
+             JOptionPane.showMessageDialog(null,"SIGN UP SUCCESSFUL!!");
+        login in= new login();
+        in.setVisible(true);
+        this. dispose();
+    }//GEN-LAST:event_SIGN_UPMouseClicked
+
+    private void LOG_INMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LOG_INMouseClicked
+         login in= new login();
+        in.setVisible(true);
+        this. dispose();
+    }//GEN-LAST:event_LOG_INMouseClicked
+
+    private void LOG_INActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LOG_INActionPerformed
+        login in= new login();
+        in.setVisible(true);
+        this. dispose();
+    }//GEN-LAST:event_LOG_INActionPerformed
 
     /**
      * @param args the command line arguments
@@ -397,9 +419,9 @@ if(contact.equals("")){
     private app.bolivia.swing.JCTextField CONTACT;
     private app.bolivia.swing.JCTextField EMAIL;
     private javax.swing.JLabel LOCK;
-    private necesario.RSMaterialButtonCircle LOGIN;
+    private necesario.RSMaterialButtonCircle LOG_IN;
     private rojerusan.RSPasswordTextPlaceHolder PD;
-    private necesario.RSMaterialButtonCircle SIGNUP;
+    private necesario.RSMaterialButtonCircle SIGN_UP;
     private app.bolivia.swing.JCTextField UN;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -408,7 +430,7 @@ if(contact.equals("")){
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

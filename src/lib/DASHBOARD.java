@@ -161,6 +161,9 @@ public class DASHBOARD extends javax.swing.JFrame {
 
         RB.setBackground(new java.awt.Color(178, 34, 34));
         RB.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RBMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 RBMouseEntered(evt);
             }
@@ -179,6 +182,9 @@ public class DASHBOARD extends javax.swing.JFrame {
 
         VR.setBackground(new java.awt.Color(178, 34, 34));
         VR.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                VRMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 VRMouseEntered(evt);
             }
@@ -197,6 +203,9 @@ public class DASHBOARD extends javax.swing.JFrame {
 
         VIB.setBackground(new java.awt.Color(178, 34, 34));
         VIB.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                VIBMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 VIBMouseEntered(evt);
             }
@@ -215,6 +224,9 @@ public class DASHBOARD extends javax.swing.JFrame {
 
         VL.setBackground(new java.awt.Color(178, 34, 34));
         VL.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                VLMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 VLMouseEntered(evt);
             }
@@ -448,6 +460,30 @@ public class DASHBOARD extends javax.swing.JFrame {
             in.setVisible(true);
             this.dispose();}
     }//GEN-LAST:event_LOMouseClicked
+
+    private void RBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RBMouseClicked
+        maindesk.removeAll();
+        returnbook as =new returnbook();
+        maindesk.add(as).setVisible(true);
+    }//GEN-LAST:event_RBMouseClicked
+
+    private void VRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VRMouseClicked
+        maindesk.removeAll();
+        vewrecs as =new vewrecs();
+        maindesk.add(as).setVisible(true);
+    }//GEN-LAST:event_VRMouseClicked
+
+    private void VIBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VIBMouseClicked
+          maindesk.removeAll();
+        vewisbook as =new vewisbook();
+        maindesk.add(as).setVisible(true);
+    }//GEN-LAST:event_VIBMouseClicked
+
+    private void VLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VLMouseClicked
+          maindesk.removeAll();
+        VIOLATION as =new VIOLATION();
+        maindesk.add(as).setVisible(true);
+    }//GEN-LAST:event_VLMouseClicked
 
     /**
      * @param args the command line arguments

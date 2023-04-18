@@ -113,6 +113,11 @@ if(genre.equals("")){
         DELETE = new necesario.RSMaterialButtonCircle();
         ADD = new necesario.RSMaterialButtonCircle();
         UPDATE = new necesario.RSMaterialButtonCircle();
+        line = new javax.swing.JLabel();
+        line1 = new javax.swing.JLabel();
+        line2 = new javax.swing.JLabel();
+        line3 = new javax.swing.JLabel();
+        line4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         BOOKDET = new rojeru_san.complementos.RSTableMetro();
@@ -125,8 +130,11 @@ if(genre.equals("")){
         jPanel10.setBackground(new java.awt.Color(204, 0, 0));
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        EN.setBackground(new java.awt.Color(204, 0, 0));
+        EN.setBorder(null);
         EN.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         EN.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        EN.setOpaque(false);
         EN.setPlaceholder("ENTER ISBN");
         jPanel10.add(EN, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 270, -1));
 
@@ -136,8 +144,11 @@ if(genre.equals("")){
         jLabel1.setText("ISBN:");
         jPanel10.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 160, 32));
 
+        EBT.setBackground(new java.awt.Color(204, 0, 0));
+        EBT.setBorder(null);
         EBT.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         EBT.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        EBT.setOpaque(false);
         EBT.setPlaceholder("ENTER BOOBK TITTLE");
         jPanel10.add(EBT, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 270, -1));
 
@@ -153,13 +164,19 @@ if(genre.equals("")){
         jLabel4.setText("GENRE:");
         jPanel10.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 160, 32));
 
+        EG.setBackground(new java.awt.Color(204, 0, 0));
+        EG.setBorder(null);
         EG.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         EG.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        EG.setOpaque(false);
         EG.setPlaceholder("ENTER GENRE");
         jPanel10.add(EG, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 270, -1));
 
+        ED.setBackground(new java.awt.Color(204, 0, 0));
+        ED.setBorder(null);
         ED.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         ED.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        ED.setOpaque(false);
         ED.setPlaceholder("ENTER EDITION");
         ED.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -180,8 +197,11 @@ if(genre.equals("")){
         jLabel6.setText("QUANTITY:");
         jPanel10.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 160, 32));
 
+        QUANT.setBackground(new java.awt.Color(204, 0, 0));
+        QUANT.setBorder(null);
         QUANT.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         QUANT.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        QUANT.setOpaque(false);
         QUANT.setPlaceholder("ENTER QUANTITY");
         QUANT.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -213,6 +233,26 @@ if(genre.equals("")){
             }
         });
         jPanel10.add(UPDATE, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 400, 100, 59));
+
+        line.setForeground(new java.awt.Color(25, 20, 20));
+        line.setText("_____________________________________________");
+        jPanel10.add(line, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 290, 30));
+
+        line1.setForeground(new java.awt.Color(25, 20, 20));
+        line1.setText("_____________________________________________");
+        jPanel10.add(line1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 290, 30));
+
+        line2.setForeground(new java.awt.Color(25, 20, 20));
+        line2.setText("_____________________________________________");
+        jPanel10.add(line2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 290, 30));
+
+        line3.setForeground(new java.awt.Color(25, 20, 20));
+        line3.setText("_____________________________________________");
+        jPanel10.add(line3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 290, 30));
+
+        line4.setForeground(new java.awt.Color(25, 20, 20));
+        line4.setText("_____________________________________________");
+        jPanel10.add(line4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 290, 30));
 
         jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 540));
 
@@ -355,5 +395,10 @@ if(genre.equals("")){
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel line;
+    private javax.swing.JLabel line1;
+    private javax.swing.JLabel line2;
+    private javax.swing.JLabel line3;
+    private javax.swing.JLabel line4;
     // End of variables declaration//GEN-END:variables
 }
