@@ -43,12 +43,12 @@ DefaultTableModel model;
              String id = rs.getString("ISSUED_ID");
              String booktittle = rs.getString("TITTLE");
              String name = rs.getString("NAME");
-             String lastname = rs.getString("LASTNAME");
+         
              String issuedate = rs.getString("ISSUED");
              String duedate = rs.getString("DUE");
              String status = rs.getString("STATUS");
              
-             Object [] obj = {id,booktittle,name,lastname,issuedate,duedate,status};
+             Object [] obj = {id,booktittle,name,issuedate,duedate,status};
              model = (DefaultTableModel) DETAILS.getModel();
              model.addRow(obj);
              
@@ -96,7 +96,7 @@ DefaultTableModel model;
 
             },
             new String [] {
-                "ISSUED ID", "BOOK  TITTLE", "NAME", "LASTNAME", "ISSUED DATE", "DUE DATE", "STATUS"
+                "ISSUED ID", "BOOK  TITTLE", "NAME", "ISSUED DATE", "DUE DATE", "STATUS"
             }
         ));
         DETAILS.setColorBackgoundHead(new java.awt.Color(0, 153, 153));

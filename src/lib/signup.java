@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import CONFIG.DBCONNECTOR;
+import org.mindrot.jbcrypt.BCrypt;
 import java.sql.*;
 import java.sql.DriverManager;
 import javax.swing.JOptionPane;
@@ -24,6 +25,8 @@ String name= UN.getText();
 String email= EMAIL.getText();
 String contact= CONTACT.getText();
 String pwd= PD.getText();
+String hasedpassword = BCrypt.hashpw(pwd, BCrypt.gensalt());
+
 
     try {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_ba", "root", "");
@@ -33,7 +36,7 @@ String pwd= PD.getText();
         pst.setString(1, name);
         pst.setString(2, email);
         pst.setString(3, contact);
-        pst.setString(4, pwd);
+        pst.setString(4,hasedpassword );
         
        int uprcount = pst.executeUpdate();
        if(uprcount >0){
@@ -44,16 +47,16 @@ String pwd= PD.getText();
         
        }else{
        JOptionPane.showMessageDialog(this, "SIGH UP FAILED");
-               
+             
        }
        
     } catch (Exception e) {
     e.printStackTrace();
     }
-   
-    
-    
     }
+
+
+
  public boolean validation(){
   String name= UN.getText();
 String email= EMAIL.getText();

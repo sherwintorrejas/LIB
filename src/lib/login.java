@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import CONFIG.DBCONNECTOR;
 import java.sql.*;
+import org.mindrot.jbcrypt.BCrypt;
 import java.sql.DriverManager;
 import javax.swing.JOptionPane;
 public class login extends javax.swing.JFrame {
@@ -40,24 +41,26 @@ public void login(){
 
     try {
           con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_ba", "root", "");
-        PreparedStatement pst = con.prepareStatement("select * from user where username = ? and password = ?");
-           pst.setString(1, name);
-           pst.setString(2, pwd);
+        PreparedStatement pst = con.prepareStatement("select * from user where username = '"+UN.getText()+"'");
+//           pst.setString(1, name);
            ResultSet rs = pst.executeQuery();
-           if(rs.next()){
-         JOptionPane.showMessageDialog(this, "LOGIN SUCCESSFULL");
-               
-               DASHBOARD dsh= new DASHBOARD();
+           
+          if(rs.next()){
+         String hashedpassword = rs.getString("password");
+            if(BCrypt.checkpw(pwd, hashedpassword)){
+                 JOptionPane.showMessageDialog(this, "LOGIN SUCCESSFULL"); 
+                 DASHBOARD dsh= new DASHBOARD();
             dsh.setVisible(true);
 
             this.setVisible(false);
             this.setDefaultCloseOperation(this.HIDE_ON_CLOSE);
             this.dispose();
-           }else{
+            
+            }  else{
            JOptionPane.showMessageDialog(this, "INCORRECT USERNAME OR PASSWORD");
-           }
-        
-        
+            
+            }
+          }   
     } catch (Exception e) {
     e.printStackTrace();
     
@@ -201,7 +204,7 @@ public void login(){
     }//GEN-LAST:event_PDActionPerformed
 
     private void LOGINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LOGINActionPerformed
-      if(validatelogin()){
+      if(validatelogin()== true){
 login();
 }
     }//GEN-LAST:event_LOGINActionPerformed
