@@ -9,14 +9,19 @@ import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.*;
+import java.awt.*;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.swing.table.*;
+import java.util.regex.*;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import net.proteanit.sql.DbUtils;
 public class addstudent extends javax.swing.JInternalFrame {
-
+DefaultTableModel model;
     /**
      * Creates new form dashabord
      */
@@ -37,7 +42,12 @@ public class addstudent extends javax.swing.JInternalFrame {
    EY.setText("");
    ECT.setText("");
    }
-    
+    public void search(String str){
+    model = (DefaultTableModel) studentdet.getModel();
+    TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
+    studentdet.setRowSorter(trs);
+    trs.setRowFilter(RowFilter.regexFilter(str));
+    }
     
       public void displayData(){
         try{
@@ -106,7 +116,6 @@ if(course.equals("")){
 
         jPanel1 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
-        ID = new app.bolivia.swing.JCTextField();
         jLabel1 = new javax.swing.JLabel();
         EN = new app.bolivia.swing.JCTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -128,9 +137,11 @@ if(course.equals("")){
         line3 = new javax.swing.JLabel();
         line4 = new javax.swing.JLabel();
         line5 = new javax.swing.JLabel();
+        ID = new app.bolivia.swing.JCTextField();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         studentdet = new rojeru_san.complementos.RSTableMetro();
+        search = new app.bolivia.swing.JCTextField();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -139,19 +150,6 @@ if(course.equals("")){
 
         jPanel10.setBackground(new java.awt.Color(204, 0, 0));
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        ID.setBackground(new java.awt.Color(204, 0, 0));
-        ID.setBorder(null);
-        ID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        ID.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
-        ID.setOpaque(false);
-        ID.setPlaceholder("ENTER ID");
-        ID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                IDActionPerformed(evt);
-            }
-        });
-        jPanel10.add(ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 270, -1));
 
         jLabel1.setFont(new java.awt.Font("Sylfaen", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -301,6 +299,19 @@ if(course.equals("")){
         line5.setText("_____________________________________________");
         jPanel10.add(line5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 290, 30));
 
+        ID.setBackground(new java.awt.Color(204, 0, 0));
+        ID.setBorder(null);
+        ID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ID.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        ID.setOpaque(false);
+        ID.setPlaceholder("ENTER ID");
+        ID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IDActionPerformed(evt);
+            }
+        });
+        jPanel10.add(ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 270, 32));
+
         jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 540));
 
         jLabel2.setFont(new java.awt.Font("Sylfaen", 1, 36)); // NOI18N
@@ -331,7 +342,23 @@ if(course.equals("")){
         });
         jScrollPane1.setViewportView(studentdet);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, 530, 460));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 530, 410));
+
+        search.setBorder(null);
+        search.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        search.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        search.setPlaceholder("SEARCH");
+        search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchActionPerformed(evt);
+            }
+        });
+        search.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchKeyReleased(evt);
+            }
+        });
+        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, 340, 20));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 540));
 
@@ -436,6 +463,15 @@ if(course.equals("")){
         // TODO add your handling code here:
     }//GEN-LAST:event_ECTActionPerformed
 
+    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchActionPerformed
+
+    private void searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchKeyReleased
+      String seachst = search.getText();
+        search(seachst);
+    }//GEN-LAST:event_searchKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private necesario.RSMaterialButtonCircle ADD;
@@ -464,6 +500,7 @@ if(course.equals("")){
     private javax.swing.JLabel line3;
     private javax.swing.JLabel line4;
     private javax.swing.JLabel line5;
+    private app.bolivia.swing.JCTextField search;
     private rojeru_san.complementos.RSTableMetro studentdet;
     // End of variables declaration//GEN-END:variables
 }

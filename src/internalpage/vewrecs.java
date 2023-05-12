@@ -12,10 +12,13 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.*;
+import java.text.*; 
+import java.awt.print.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import net.proteanit.sql.DbUtils;
 public class vewrecs extends javax.swing.JInternalFrame {
@@ -126,6 +129,7 @@ DefaultTableModel model;
         jPanel10 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         DETAILS = new rojeru_san.complementos.RSTableMetro();
+        rSMaterialButtonCircle1 = new necesario.RSMaterialButtonCircle();
         jLabel16 = new javax.swing.JLabel();
         ddate = new com.toedter.calendar.JDateChooser();
         isdate = new com.toedter.calendar.JDateChooser();
@@ -158,7 +162,15 @@ DefaultTableModel model;
         DETAILS.setGridColor(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(DETAILS);
 
-        jPanel10.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 810, 300));
+        jPanel10.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 810, 290));
+
+        rSMaterialButtonCircle1.setText("PRINT");
+        rSMaterialButtonCircle1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSMaterialButtonCircle1ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(rSMaterialButtonCircle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 0, 130, 40));
 
         jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 870, 360));
 
@@ -191,7 +203,7 @@ DefaultTableModel model;
                 VIEWALLActionPerformed(evt);
             }
         });
-        jPanel1.add(VIEWALL, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 120, 150, 50));
+        jPanel1.add(VIEWALL, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 100, 150, 50));
 
         SEARCH.setBackground(new java.awt.Color(0, 102, 102));
         SEARCH.setText("SEARCH");
@@ -200,7 +212,7 @@ DefaultTableModel model;
                 SEARCHActionPerformed(evt);
             }
         });
-        jPanel1.add(SEARCH, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 60, 150, 50));
+        jPanel1.add(SEARCH, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 50, 150, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 540));
 
@@ -221,6 +233,19 @@ DefaultTableModel model;
      viewdetails();
     }//GEN-LAST:event_VIEWALLActionPerformed
 
+    private void rSMaterialButtonCircle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle1ActionPerformed
+        MessageFormat head = new MessageFormat("RECORDS");
+        MessageFormat FOOT = new MessageFormat("Page{0, number , integer}");
+
+        try {
+            DETAILS.print(JTable.PrintMode.NORMAL, head, FOOT);
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(this, "cannot print");
+        }
+    }//GEN-LAST:event_rSMaterialButtonCircle1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rojeru_san.complementos.RSTableMetro DETAILS;
@@ -234,5 +259,6 @@ DefaultTableModel model;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JScrollPane jScrollPane1;
+    private necesario.RSMaterialButtonCircle rSMaterialButtonCircle1;
     // End of variables declaration//GEN-END:variables
 }
