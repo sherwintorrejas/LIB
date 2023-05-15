@@ -9,11 +9,13 @@ import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.*;
+import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import net.proteanit.sql.DbUtils;
 public class dashabord extends javax.swing.JInternalFrame {
 private Connection con;
+DefaultTableModel model;
     /**
      * Creates new form dashabord
      */
@@ -34,7 +36,9 @@ private Connection con;
             DBCONNECTOR dbc = new DBCONNECTOR();
             ResultSet rs = dbc.getData("SELECT * FROM student_details");
             studentdet.setModel(DbUtils.resultSetToTableModel(rs));
-       
+       DefaultTableModel model = (DefaultTableModel) studentdet.getModel();
+String[] columnIdentifiers = {"ID", "Name", "Lastname", "Course","Year","Contact",};
+model.setColumnIdentifiers(columnIdentifiers);
         }catch(SQLException ex){
             System.out.println("Error Message: "+ex);
        
@@ -308,6 +312,14 @@ private Connection con;
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 810, 140));
 
         studentdet.setBackground(new java.awt.Color(204, 204, 204));
+        studentdet.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Name", "Lastname", "Course", "Year", "Contact"
+            }
+        ));
         studentdet.setCellSelectionEnabled(true);
         studentdet.setColorBackgoundHead(new java.awt.Color(204, 0, 0));
         studentdet.setColorFilasBackgound2(new java.awt.Color(255, 255, 255));
@@ -317,6 +329,7 @@ private Connection con;
         studentdet.setEnabled(false);
         studentdet.setGridColor(new java.awt.Color(255, 255, 255));
         jScrollPane2.setViewportView(studentdet);
+        studentdet.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 810, 150));
 

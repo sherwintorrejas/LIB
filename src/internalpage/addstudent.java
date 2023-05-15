@@ -5,11 +5,13 @@
  */
 package internalpage;
 import CONFIG.DBCONNECTOR;
+import com.mysql.cj.protocol.Resultset;
 import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.*;
 import java.awt.*;
+import java.io.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -17,23 +19,33 @@ import javax.swing.table.*;
 import java.util.regex.*;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import java.text.*; 
+import java.awt.print.*;
+import javax.swing.JTable;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import net.proteanit.sql.DbUtils;
+
 public class addstudent extends javax.swing.JInternalFrame {
 DefaultTableModel model;
+private Connection con;
+
+
     /**
      * Creates new form dashabord
      */
     public addstudent() {
         initComponents();
-        
          displayData();
           this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI bi = (BasicInternalFrameUI) this.getUI();
         bi.setNorthPane(null);
         
     }
+   
+    
+    
+    
   public void reset(){
   ID.setText("");
       EN.setText("");
@@ -41,6 +53,7 @@ DefaultTableModel model;
    EC.setText("");
    EY.setText("");
    ECT.setText("");
+   picture.setIcon(null);
    }
     public void search(String str){
     model = (DefaultTableModel) studentdet.getModel();
@@ -55,7 +68,10 @@ DefaultTableModel model;
             DBCONNECTOR dbc = new DBCONNECTOR();
             ResultSet rs = dbc.getData("SELECT * FROM student_details");
             studentdet.setModel(DbUtils.resultSetToTableModel(rs));
-       
+       DefaultTableModel model = (DefaultTableModel) studentdet.getModel();
+    String[] columnIdentifiers = {"ID", "Name", "Lastname", "Course","Year","Contact"};
+    model.setColumnIdentifiers(columnIdentifiers);
+    
         }catch(SQLException ex){
             System.out.println("Error Message: "+ex);
        
@@ -67,11 +83,10 @@ DefaultTableModel model;
             DBCONNECTOR dbc = new DBCONNECTOR();
             ResultSet rs = dbc.getData("SELECT * FROM student_details");
             studentdet.setModel(DbUtils.resultSetToTableModel(rs));
+            
         }catch(SQLException ex){
-        
-        
-        
-        
+         System.out.println("Error Message: "+ex);
+       
         
         }
     
@@ -102,9 +117,119 @@ if(course.equals("")){
    if(contact.equals("")){
  JOptionPane.showMessageDialog(this, "PLEASE ENTER CONTACT");
  return false;
- }      
+ } 
+    if(picture.getIcon()==null){
+ JOptionPane.showMessageDialog(this, "PLEASE ENTER PHOTO");
+ return false;
+ }
    return true;  
  }
+     public void add(){
+      try{
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_ba", "root", "");
+            String sql = "INSERT INTO student_details ( NAME, LASTNAME, COURSE, YEAR, CONTACT, PROFILE)values (?,?,?,?,?,?)"; 
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, EN.getText());
+            ps.setString(2, ELN.getText());
+            ps.setString(3, EC.getText());
+            ps.setString(4, EY.getText());
+            ps.setString(5, ECT.getText());
+            ps.setBytes(6, pic);
+            ps.executeUpdate();
+           
+            displayData();
+               reset(); 
+        JOptionPane.showMessageDialog(this, "ADDED SUCCESSFULLY");
+            }catch(SQLException e){
+                System.err.println("Cannot connect to database: " + e.getMessage());
+            }
+     
+     }
+     public void update(){
+         try {
+         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_ba", "root", "");
+         int row = studentdet.getSelectedRow();
+         String value = (studentdet.getModel().getValueAt(row, 0).toString());
+         String sql = "UPDATE student_details SET NAME=?, LASTNAME=?, COURSE=?, YEAR=?, CONTACT=?, PROFILE=? where ID="+value;
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, EN.getText());
+            ps.setString(2, ELN.getText());
+            ps.setString(3, EC.getText());
+            ps.setString(4, EY.getText());
+            ps.setString(5, ECT.getText());
+            ps.setBytes(6, pic);
+            ps.executeUpdate();
+           if(row == 0){
+            JOptionPane.showMessageDialog(null, "Updated FAILED!");
+        }else{
+           JOptionPane.showMessageDialog(null, "Updated Successfully!");
+           displayData();
+           reset();
+        }
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+     }
+     public void upload(){
+     JFileChooser chose = new JFileChooser();
+     chose.showOpenDialog(null);
+     File f = chose.getSelectedFile();
+         filename = f.getAbsolutePath();
+         ImageIcon ii = new ImageIcon(filename);
+         Image img = ii.getImage().getScaledInstance(picture.getWidth(), picture.getHeight(), Image.SCALE_SMOOTH);
+     picture.setIcon(new ImageIcon(img));
+         try {
+             File ig = new File(filename);
+             FileInputStream is = new FileInputStream(ig);
+             ByteArrayOutputStream bos =  new ByteArrayOutputStream();
+             byte[] buf = new byte [1024];
+             for (int rnum; (rnum = is.read(buf))!=-1;){
+             bos.write(buf, 0, rnum);
+             }
+             pic=bos.toByteArray();
+         } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, e);
+         }
+          
+    }
+     public void table(){
+     int row = studentdet.getSelectedRow();
+     int cc = studentdet.getSelectedColumn();
+     String tc = studentdet.getModel().getValueAt(row, 0).toString();
+             try{
+            con= DriverManager.getConnection("jdbc:mysql://localhost:3306/library_ba", "root", "");
+             String sql = "select * from student_details where ID="+tc+"";
+             PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+            int id=rs.getInt("ID");
+            String name=rs.getString("NAME");
+            String lname=rs.getString("LASTNAME");
+            String cors=rs.getString("COURSE");
+            String yr=rs.getString("YEAR");
+            String cont=rs.getString("CONTACT");
+            byte[] img = rs.getBytes("PROFILE");
+            format = new ImageIcon(img);
+            Image im =format.getImage().getScaledInstance(picture.getWidth(), picture.getHeight(), Image.SCALE_SMOOTH);
+            picture.setIcon(new ImageIcon(im));
+            
+            
+                ID.setText(""+id);
+                EN.setText(name);
+                ELN.setText(lname);
+                EC.setText(cors);
+                EY.setText(yr);
+                ECT.setText(cont);
+                
+         
+            }
+             ps.close();
+             rs.close();
+         } catch (Exception e) {
+         JOptionPane.showMessageDialog(null, e);
+         }
+        }
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -138,10 +263,13 @@ if(course.equals("")){
         line4 = new javax.swing.JLabel();
         line5 = new javax.swing.JLabel();
         ID = new app.bolivia.swing.JCTextField();
+        upload = new necesario.RSMaterialButtonCircle();
+        picture = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        studentdet = new rojeru_san.complementos.RSTableMetro();
         search = new app.bolivia.swing.JCTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        studentdet = new rojeru_san.complementos.RSTableMetro();
+        rSMaterialButtonCircle2 = new necesario.RSMaterialButtonCircle();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -163,7 +291,7 @@ if(course.equals("")){
         EN.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
         EN.setOpaque(false);
         EN.setPlaceholder("ENTER NAME");
-        jPanel10.add(EN, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 270, -1));
+        jPanel10.add(EN, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 180, -1));
 
         jLabel3.setFont(new java.awt.Font("Sylfaen", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -183,7 +311,7 @@ if(course.equals("")){
         ELN.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
         ELN.setOpaque(false);
         ELN.setPlaceholder("ENTER LASTNAME");
-        jPanel10.add(ELN, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 270, -1));
+        jPanel10.add(ELN, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 180, -1));
 
         EC.setBackground(new java.awt.Color(204, 0, 0));
         EC.setBorder(null);
@@ -196,7 +324,7 @@ if(course.equals("")){
                 ECKeyTyped(evt);
             }
         });
-        jPanel10.add(EC, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 270, -1));
+        jPanel10.add(EC, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 180, -1));
 
         jLabel5.setFont(new java.awt.Font("Sylfaen", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -221,7 +349,7 @@ if(course.equals("")){
                 EYKeyPressed(evt);
             }
         });
-        jPanel10.add(EY, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 270, -1));
+        jPanel10.add(EY, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 180, -1));
 
         DELETE.setText("DELETE");
         DELETE.addActionListener(new java.awt.event.ActionListener() {
@@ -263,7 +391,7 @@ if(course.equals("")){
                 ECTKeyPressed(evt);
             }
         });
-        jPanel10.add(ECT, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 270, -1));
+        jPanel10.add(ECT, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 180, -1));
 
         jLabel7.setFont(new java.awt.Font("Sylfaen", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -276,28 +404,34 @@ if(course.equals("")){
         jPanel10.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 60, 210, 140));
 
         line.setForeground(new java.awt.Color(25, 20, 20));
-        line.setText("_____________________________________________");
-        jPanel10.add(line, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 290, 30));
+        line.setText("__________________________");
+        line.setToolTipText("");
+        jPanel10.add(line, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 200, 30));
 
         line1.setForeground(new java.awt.Color(25, 20, 20));
-        line1.setText("_____________________________________________");
-        jPanel10.add(line1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 290, 30));
+        line1.setText("__________________________");
+        line1.setToolTipText("");
+        jPanel10.add(line1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 200, 30));
 
         line2.setForeground(new java.awt.Color(25, 20, 20));
-        line2.setText("_____________________________________________");
-        jPanel10.add(line2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 290, 30));
+        line2.setText("__________________________");
+        line2.setToolTipText("");
+        jPanel10.add(line2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 200, 30));
 
         line3.setForeground(new java.awt.Color(25, 20, 20));
-        line3.setText("_____________________________________________");
-        jPanel10.add(line3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 290, 30));
+        line3.setText("__________________________");
+        line3.setToolTipText("");
+        jPanel10.add(line3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 200, 30));
 
         line4.setForeground(new java.awt.Color(25, 20, 20));
-        line4.setText("_____________________________________________");
-        jPanel10.add(line4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 290, 30));
+        line4.setText("__________________________");
+        line4.setToolTipText("");
+        jPanel10.add(line4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 200, 30));
 
         line5.setForeground(new java.awt.Color(25, 20, 20));
-        line5.setText("_____________________________________________");
-        jPanel10.add(line5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 290, 30));
+        line5.setText("__________________________");
+        line5.setToolTipText("");
+        jPanel10.add(line5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 200, 30));
 
         ID.setBackground(new java.awt.Color(204, 0, 0));
         ID.setBorder(null);
@@ -310,9 +444,21 @@ if(course.equals("")){
                 IDActionPerformed(evt);
             }
         });
-        jPanel10.add(ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 270, 32));
+        jPanel10.add(ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 180, 32));
 
-        jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 540));
+        upload.setText("UPLOAD");
+        upload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uploadActionPerformed(evt);
+            }
+        });
+        jPanel10.add(upload, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 100, 40));
+
+        picture.setBackground(new java.awt.Color(255, 255, 255));
+        picture.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel10.add(picture, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 100, 110));
+
+        jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 540));
 
         jLabel2.setFont(new java.awt.Font("Sylfaen", 1, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -320,29 +466,6 @@ if(course.equals("")){
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/graduation.png"))); // NOI18N
         jLabel2.setText("ADD STUDENT");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, 350, 60));
-
-        studentdet.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        studentdet.setColorBackgoundHead(new java.awt.Color(204, 0, 0));
-        studentdet.setColorFilasBackgound2(new java.awt.Color(255, 255, 255));
-        studentdet.setFuenteHead(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
-        studentdet.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                studentdetMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(studentdet);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 530, 410));
 
         search.setBorder(null);
         search.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -358,57 +481,51 @@ if(course.equals("")){
                 searchKeyReleased(evt);
             }
         });
-        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, 340, 20));
+        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 100, 340, 20));
+
+        studentdet.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Name", "Lastname", "Course", "Year", "Contact"
+            }
+        ));
+        studentdet.setFont(new java.awt.Font("Yu Gothic UI", 1, 10)); // NOI18N
+        studentdet.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                studentdetMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(studentdet);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 550, -1));
+
+        rSMaterialButtonCircle2.setBackground(new java.awt.Color(204, 0, 0));
+        rSMaterialButtonCircle2.setText("PRINT");
+        rSMaterialButtonCircle2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSMaterialButtonCircle2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(rSMaterialButtonCircle2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 80, 110, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void studentdetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentdetMouseClicked
-      int rowIndex = studentdet.getSelectedRow();
-        if(rowIndex <0){
-        
-        }else{
-        TableModel model = studentdet.getModel();
-
-        ID.setText(""+model.getValueAt(rowIndex, 0));
-        EN.setText(""+model.getValueAt(rowIndex, 1));
-        ELN.setText(""+model.getValueAt(rowIndex, 2));
-        EC.setText(""+model.getValueAt(rowIndex, 3));
-        EY.setText(""+model.getValueAt(rowIndex, 4));
-         ECT.setText(""+model.getValueAt(rowIndex, 4));
-        }
-    }//GEN-LAST:event_studentdetMouseClicked
-
     private void ADDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ADDActionPerformed
         if(validation()== true){
-       DBCONNECTOR dbc = new DBCONNECTOR();
-        dbc.insertData("INSERT INTO student_details ( NAME, LASTNAME, COURSE, YEAR, CONTACT) "
-                + "VALUES ('"+EN.getText()+"', '"+ELN.getText()+"','"+EC.getText()+"','"+EY.getText()+"','"+ECT.getText()+"')");
-        displayData();
-        reset(); 
-        JOptionPane.showMessageDialog(this, "ADDED SUCCESSFULLY");
+      add();
         }
     }//GEN-LAST:event_ADDActionPerformed
 
     private void UPDATEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UPDATEActionPerformed
       if(validation()== true){
-      
-     DBCONNECTOR dbc = new DBCONNECTOR();
-        int num = dbc.updateData("UPDATE student_details "
-       + "SET NAME = '"+EN.getText()+"', LASTNAME='"+ELN.getText()+"', "
-                        + "COURSE ='"+EC.getText()+"', YEAR='"+EY.getText()+"', CONTACT='"+ECT.getText()+"'  "
-                                + "WHERE ID = '"+ID.getText()+"'");
-       
-        if(num == 0){
-            JOptionPane.showMessageDialog(null, "Updated FAILED!");
-        }else{
-           JOptionPane.showMessageDialog(null, "Updated Successfully!");
-           displayData();
-           reset();
+     update();
         }
-      }
+      
     }//GEN-LAST:event_UPDATEActionPerformed
 
     private void DELETEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DELETEActionPerformed
@@ -429,21 +546,6 @@ if(course.equals("")){
                     }    
        }
     }//GEN-LAST:event_DELETEActionPerformed
-
-    private void ECKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ECKeyTyped
-   
-    }//GEN-LAST:event_ECKeyTyped
-
-    private void EYKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EYKeyPressed
-          char c =evt.getKeyChar();
-        if(Character.isLetter(c)){
-        EC.setEditable(false);
-        JOptionPane.showMessageDialog(this, "Please enter number only");
-        }else{
-        EC.setEditable(true);
-        
-        }
-    }//GEN-LAST:event_EYKeyPressed
 
     private void IDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDActionPerformed
         // TODO add your handling code here:
@@ -472,6 +574,43 @@ if(course.equals("")){
         search(seachst);
     }//GEN-LAST:event_searchKeyReleased
 
+    private void ECKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ECKeyTyped
+
+    }//GEN-LAST:event_ECKeyTyped
+
+    private void EYKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EYKeyPressed
+        char c =evt.getKeyChar();
+        if(Character.isLetter(c)){
+            EY.setEditable(false);
+            JOptionPane.showMessageDialog(this, "Please enter number only");
+        }else{
+            EY.setEditable(true);
+
+        }
+    }//GEN-LAST:event_EYKeyPressed
+
+    private void uploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadActionPerformed
+     
+      upload();
+    }//GEN-LAST:event_uploadActionPerformed
+
+    private void studentdetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentdetMouseClicked
+       table();
+    }//GEN-LAST:event_studentdetMouseClicked
+
+    private void rSMaterialButtonCircle2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle2ActionPerformed
+        MessageFormat head = new MessageFormat("BOOKS");
+        MessageFormat FOOT = new MessageFormat("Page{0, number , integer}");
+
+        try {
+            studentdet.print(JTable.PrintMode.NORMAL, head, FOOT);
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(this, "cannot print");
+        }
+    }//GEN-LAST:event_rSMaterialButtonCircle2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private necesario.RSMaterialButtonCircle ADD;
@@ -493,14 +632,21 @@ if(course.equals("")){
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel line;
     private javax.swing.JLabel line1;
     private javax.swing.JLabel line2;
     private javax.swing.JLabel line3;
     private javax.swing.JLabel line4;
     private javax.swing.JLabel line5;
+    private javax.swing.JLabel picture;
+    private necesario.RSMaterialButtonCircle rSMaterialButtonCircle2;
     private app.bolivia.swing.JCTextField search;
     private rojeru_san.complementos.RSTableMetro studentdet;
+    private necesario.RSMaterialButtonCircle upload;
     // End of variables declaration//GEN-END:variables
+String filename = null;
+byte[] pic = null; 
+private ImageIcon format = null;
+
 }

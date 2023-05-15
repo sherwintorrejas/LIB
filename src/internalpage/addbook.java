@@ -15,6 +15,9 @@ import javax.swing.table.TableModel;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import java.text.*; 
+import java.awt.print.*;
+import javax.swing.JTable;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.TableRowSorter;
 import net.proteanit.sql.DbUtils;
@@ -130,6 +133,7 @@ if(genre.equals("")){
         jScrollPane1 = new javax.swing.JScrollPane();
         BOOKDET = new rojeru_san.complementos.RSTableMetro();
         search = new app.bolivia.swing.JCTextField();
+        rSMaterialButtonCircle2 = new necesario.RSMaterialButtonCircle();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -309,7 +313,16 @@ if(genre.equals("")){
                 searchKeyReleased(evt);
             }
         });
-        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 100, 340, 20));
+        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, 340, 20));
+
+        rSMaterialButtonCircle2.setBackground(new java.awt.Color(204, 0, 0));
+        rSMaterialButtonCircle2.setText("PRINT");
+        rSMaterialButtonCircle2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSMaterialButtonCircle2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(rSMaterialButtonCircle2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 90, 110, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 540));
 
@@ -409,6 +422,19 @@ if(genre.equals("")){
         search(seachst);
     }//GEN-LAST:event_searchKeyReleased
 
+    private void rSMaterialButtonCircle2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle2ActionPerformed
+     MessageFormat head = new MessageFormat("BOOKS");
+        MessageFormat FOOT = new MessageFormat("Page{0, number , integer}");
+
+        try {
+            BOOKDET.print(JTable.PrintMode.NORMAL, head, FOOT);
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(this, "cannot print");
+        }
+    }//GEN-LAST:event_rSMaterialButtonCircle2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private necesario.RSMaterialButtonCircle ADD;
@@ -434,6 +460,8 @@ if(genre.equals("")){
     private javax.swing.JLabel line2;
     private javax.swing.JLabel line3;
     private javax.swing.JLabel line4;
+    private necesario.RSMaterialButtonCircle rSMaterialButtonCircle1;
+    private necesario.RSMaterialButtonCircle rSMaterialButtonCircle2;
     private app.bolivia.swing.JCTextField search;
     // End of variables declaration//GEN-END:variables
 }

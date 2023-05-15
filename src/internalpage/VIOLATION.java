@@ -16,6 +16,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import java.awt.print.*;
+import java.text.*; 
+import javax.swing.JTable;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import net.proteanit.sql.DbUtils;
 public class VIOLATION extends javax.swing.JInternalFrame {
@@ -86,6 +89,7 @@ DefaultTableModel model;
         jPanel10 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         DETAILS = new rojeru_san.complementos.RSTableMetro();
+        rSMaterialButtonCircle1 = new necesario.RSMaterialButtonCircle();
         jLabel16 = new javax.swing.JLabel();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -112,7 +116,15 @@ DefaultTableModel model;
         DETAILS.setGridColor(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(DETAILS);
 
-        jPanel10.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 810, 420));
+        jPanel10.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 810, 370));
+
+        rSMaterialButtonCircle1.setText("PRINT");
+        rSMaterialButtonCircle1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSMaterialButtonCircle1ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(rSMaterialButtonCircle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 10, 110, 40));
 
         jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 870, 450));
 
@@ -127,6 +139,19 @@ DefaultTableModel model;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void rSMaterialButtonCircle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle1ActionPerformed
+        MessageFormat head = new MessageFormat("VIOLATORS");
+        MessageFormat FOOT = new MessageFormat("Page{0, number , integer}");
+
+        try {
+            DETAILS.print(JTable.PrintMode.NORMAL, head, FOOT);
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(this, "cannot print");
+        }
+    }//GEN-LAST:event_rSMaterialButtonCircle1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rojeru_san.complementos.RSTableMetro DETAILS;
@@ -134,5 +159,6 @@ DefaultTableModel model;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JScrollPane jScrollPane1;
+    private necesario.RSMaterialButtonCircle rSMaterialButtonCircle1;
     // End of variables declaration//GEN-END:variables
 }
