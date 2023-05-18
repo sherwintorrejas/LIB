@@ -37,7 +37,7 @@ private Connection connection;
  
     try {
          connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_ba", "root", "");
-         String sql = "SELECT * FROM issue_book_details where ISBN = ? and ID = ? and STATUS =?";
+         String sql = "SELECT * FROM xample where ISBN = ? and ID = ? and STATUS =?";
         PreparedStatement pst = connection.prepareStatement(sql);
         
         pst.setInt(1, bookid);
@@ -49,7 +49,7 @@ private Connection connection;
             
         ISSUEDID.setText(rs.getString("ISSUED_ID"));
         TITLE.setText(rs.getString("ISBN"));
-        STUDNAME.setText(rs.getString("NAME"));
+        STUDNAME.setText(rs.getString("ID"));
         ISSUEDDATE.setText(rs.getString("ISSUED"));
         DUEDATE.setText(rs.getString("DUE"));
         ERROR.setText("");
@@ -72,7 +72,7 @@ boolean isreturnbook = false;
  int sid= Integer.parseInt(STUDid.getText());
     try {
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_ba", "root", "");
-         String sql = "update issue_book_details set STATUS = ? where ID = ? and ISBN = ? and STATUS = ?";
+         String sql = "update xample set STATUS = ? where ID = ? and ISBN = ? and STATUS = ?";
          PreparedStatement pst = connection.prepareStatement(sql);
          pst.setString(1, "RETURNED");
         pst.setInt(2, sid);
@@ -235,8 +235,9 @@ String studenti = STUDid.getText();
 
         ISBN.setBackground(new java.awt.Color(0, 58, 140));
         ISBN.setBorder(null);
+        ISBN.setForeground(new java.awt.Color(153, 255, 153));
         ISBN.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        ISBN.setFont(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
+        ISBN.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
         ISBN.setOpaque(false);
         ISBN.setPlaceholder("ENTER ISBN");
         ISBN.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -247,6 +248,11 @@ String studenti = STUDid.getText();
         ISBN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ISBNActionPerformed(evt);
+            }
+        });
+        ISBN.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                ISBNKeyPressed(evt);
             }
         });
         jPanel1.add(ISBN, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 150, -1, -1));
@@ -265,13 +271,24 @@ String studenti = STUDid.getText();
 
         STUDid.setBackground(new java.awt.Color(0, 58, 140));
         STUDid.setBorder(null);
+        STUDid.setForeground(new java.awt.Color(153, 255, 153));
         STUDid.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        STUDid.setFont(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
+        STUDid.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
         STUDid.setOpaque(false);
         STUDid.setPlaceholder("ENTER STUDENT ID");
         STUDid.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 STUDidFocusLost(evt);
+            }
+        });
+        STUDid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                STUDidActionPerformed(evt);
+            }
+        });
+        STUDid.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                STUDidKeyPressed(evt);
             }
         });
         jPanel1.add(STUDid, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 220, -1, -1));
@@ -342,6 +359,30 @@ String studenti = STUDid.getText();
        }
       }
     }//GEN-LAST:event_RETURNBOOKActionPerformed
+
+    private void STUDidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_STUDidActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_STUDidActionPerformed
+
+    private void ISBNKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ISBNKeyPressed
+           char c =evt.getKeyChar();
+        if(Character.isLetter(c)){
+        ISBN.setEditable(false);
+        JOptionPane.showMessageDialog(this, "Please enter number only");
+        }else{
+        ISBN.setEditable(true);
+        }
+    }//GEN-LAST:event_ISBNKeyPressed
+
+    private void STUDidKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_STUDidKeyPressed
+               char c =evt.getKeyChar();
+        if(Character.isLetter(c)){
+        STUDid.setEditable(false);
+        JOptionPane.showMessageDialog(this, "Please enter number only");
+        }else{
+        STUDid.setEditable(true);
+        }
+    }//GEN-LAST:event_STUDidKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

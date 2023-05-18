@@ -82,14 +82,14 @@ model.setColumnIdentifiers(columnIdentifiers);
               
           nbook.setText(String.valueOf(count));  
           }
-           st = con.prepareStatement("SELECT COUNT(*) FROM issue_book_details where STATUS = '"+"PENDING"+"'");
+           st = con.prepareStatement("SELECT COUNT(*) FROM xample where STATUS = '"+"PENDING"+"'");
            rs = st.executeQuery();
            while (rs.next()){
               int count = rs.getInt(1);
               
           isbook.setText(String.valueOf(count));  
           }
-            st = con.prepareStatement("SELECT COUNT(*) FROM issue_book_details where DUE < '"+todaydate+"' and STATUS = '"+"PENDING"+"'");
+            st = con.prepareStatement("SELECT COUNT(*) FROM xample where DUE < '"+todaydate+"' and STATUS = '"+"PENDING"+"'");
            rs = st.executeQuery();
            while (rs.next()){
               int count = rs.getInt(1);

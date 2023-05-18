@@ -97,17 +97,14 @@ private Connection connection;
   
      try {
      connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_ba", "root", "");
-     String sql = "insert into issue_book_details(ISBN,TITTLE,ID,NAME,LASTNAME,ISSUED,DUE,STATUS) values(?,?,?,?,?,?,?,?)";
+     String sql = "insert into xample(ISBN,ID,ISSUED,DUE,STATUS) values(?,?,?,?,?)";
      
      PreparedStatement pst = connection.prepareStatement(sql);
   pst.setInt(1, bookid);
-  pst.setString(2, bookname);
-  pst.setInt(3, sid);
-  pst.setString(4, studentname);
-  pst.setString(5, studentlastname);
-  pst.setDate(6, sissueddate);
-  pst.setDate(7, sduedate);
-  pst.setString(8, "PENDING");
+  pst.setInt(2, sid);
+  pst.setDate(3, sissueddate);
+  pst.setDate(4, sduedate);
+  pst.setString(5, "PENDING");
   
  
   int rowCount= pst.executeUpdate();
@@ -117,7 +114,7 @@ private Connection connection;
   isissued = false;
   }
      } catch (Exception e) {
-         e.printStackTrace();
+      JOptionPane.showMessageDialog(null, e);
      
      }
   return isissued;
@@ -409,8 +406,9 @@ String studenti = studentid.getText();
 
         isbn.setBackground(new java.awt.Color(0, 58, 140));
         isbn.setBorder(null);
+        isbn.setForeground(new java.awt.Color(153, 255, 153));
         isbn.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        isbn.setFont(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
+        isbn.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
         isbn.setOpaque(false);
         isbn.setPlaceholder("ENTER ISBN");
         isbn.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -421,6 +419,11 @@ String studenti = studentid.getText();
         isbn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 isbnActionPerformed(evt);
+            }
+        });
+        isbn.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                isbnKeyPressed(evt);
             }
         });
         jPanel1.add(isbn, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 150, -1, -1));
@@ -463,13 +466,19 @@ String studenti = studentid.getText();
 
         studentid.setBackground(new java.awt.Color(0, 58, 140));
         studentid.setBorder(null);
+        studentid.setForeground(new java.awt.Color(153, 255, 153));
         studentid.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        studentid.setFont(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
+        studentid.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
         studentid.setOpaque(false);
         studentid.setPlaceholder("ENTER STUDENT ID");
         studentid.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 studentidFocusLost(evt);
+            }
+        });
+        studentid.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                studentidKeyPressed(evt);
             }
         });
         jPanel1.add(studentid, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 220, -1, -1));
@@ -534,6 +543,26 @@ String studenti = studentid.getText();
        getstudentdet();
        }
     }//GEN-LAST:event_studentidFocusLost
+
+    private void isbnKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_isbnKeyPressed
+               char c =evt.getKeyChar();
+        if(Character.isLetter(c)){
+        isbn.setEditable(false);
+        JOptionPane.showMessageDialog(this, "Please enter number only");
+        }else{
+        isbn.setEditable(true);
+        }
+    }//GEN-LAST:event_isbnKeyPressed
+
+    private void studentidKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_studentidKeyPressed
+               char c =evt.getKeyChar();
+        if(Character.isLetter(c)){
+        studentid.setEditable(false);
+        JOptionPane.showMessageDialog(this, "Please enter number only");
+        }else{
+        studentid.setEditable(true);
+        }
+    }//GEN-LAST:event_studentidKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

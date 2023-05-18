@@ -5,7 +5,6 @@
  */
 package internalpage;
 import CONFIG.DBCONNECTOR;
-import com.mysql.cj.protocol.Resultset;
 import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -286,8 +285,9 @@ if(course.equals("")){
 
         EN.setBackground(new java.awt.Color(204, 0, 0));
         EN.setBorder(null);
+        EN.setForeground(new java.awt.Color(153, 255, 153));
         EN.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        EN.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        EN.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
         EN.setOpaque(false);
         EN.setPlaceholder("ENTER NAME");
         jPanel10.add(EN, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 180, -1));
@@ -306,16 +306,18 @@ if(course.equals("")){
 
         ELN.setBackground(new java.awt.Color(204, 0, 0));
         ELN.setBorder(null);
+        ELN.setForeground(new java.awt.Color(153, 255, 153));
         ELN.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        ELN.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        ELN.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
         ELN.setOpaque(false);
         ELN.setPlaceholder("ENTER LASTNAME");
         jPanel10.add(ELN, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 180, -1));
 
         EC.setBackground(new java.awt.Color(204, 0, 0));
         EC.setBorder(null);
+        EC.setForeground(new java.awt.Color(153, 255, 153));
         EC.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        EC.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        EC.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
         EC.setOpaque(false);
         EC.setPlaceholder("ENTER COURSE");
         EC.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -339,8 +341,9 @@ if(course.equals("")){
 
         EY.setBackground(new java.awt.Color(204, 0, 0));
         EY.setBorder(null);
+        EY.setForeground(new java.awt.Color(153, 255, 153));
         EY.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        EY.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        EY.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
         EY.setOpaque(false);
         EY.setPlaceholder("ENTER YEAR");
         EY.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -376,8 +379,9 @@ if(course.equals("")){
 
         ECT.setBackground(new java.awt.Color(204, 0, 0));
         ECT.setBorder(null);
+        ECT.setForeground(new java.awt.Color(153, 255, 153));
         ECT.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        ECT.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        ECT.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
         ECT.setOpaque(false);
         ECT.setPlaceholder("ENTER CONTACT");
         ECT.addActionListener(new java.awt.event.ActionListener() {
@@ -434,8 +438,9 @@ if(course.equals("")){
 
         ID.setBackground(new java.awt.Color(204, 0, 0));
         ID.setBorder(null);
+        ID.setForeground(new java.awt.Color(153, 255, 153));
         ID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        ID.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        ID.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
         ID.setOpaque(false);
         ID.setPlaceholder("ENTER ID");
         ID.addActionListener(new java.awt.event.ActionListener() {

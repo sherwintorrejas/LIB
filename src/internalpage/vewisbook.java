@@ -41,18 +41,18 @@ DefaultTableModel model;
         try {
              con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_ba", "root", "");
              Statement st = con.createStatement();
-             ResultSet rs = st.executeQuery("select * from issue_book_details where STATUS ='"+"PENDING"+"'");
+             ResultSet rs = st.executeQuery("select * from xample where STATUS ='"+"PENDING"+"'");
              
              while(rs.next()){
              String id = rs.getString("ISSUED_ID");
-             String booktittle = rs.getString("TITTLE");
-             String name = rs.getString("NAME");
+             String isbn = rs.getString("ISBN");
+             String studentid = rs.getString("ID");
          
              String issuedate = rs.getString("ISSUED");
              String duedate = rs.getString("DUE");
              String status = rs.getString("STATUS");
              
-             Object [] obj = {id,booktittle,name,issuedate,duedate,status};
+             Object [] obj = {id,isbn, studentid,issuedate,duedate,status};
              model = (DefaultTableModel) DETAILS.getModel();
              model.addRow(obj);
              
@@ -101,7 +101,7 @@ DefaultTableModel model;
 
             },
             new String [] {
-                "ISSUED ID", "BOOK  TITTLE", "NAME", "ISSUED DATE", "DUE DATE", "STATUS"
+                "ISSUED ID", "ISBN", "ID", "ISSUED DATE", "DUE DATE", "STATUS"
             }
         ));
         DETAILS.setColorBackgoundHead(new java.awt.Color(0, 153, 153));

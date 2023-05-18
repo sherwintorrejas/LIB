@@ -265,6 +265,11 @@ if(contact.equals("")){
         CONTACT.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
         CONTACT.setOpaque(false);
         CONTACT.setPlaceholder(" ENTER CONTACT");
+        CONTACT.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                CONTACTKeyPressed(evt);
+            }
+        });
         jPanel2.add(CONTACT, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
 
         jLabel14.setForeground(new java.awt.Color(25, 20, 20));
@@ -381,6 +386,16 @@ if(contact.equals("")){
         in.setVisible(true);
         this. dispose();
     }//GEN-LAST:event_LOG_INActionPerformed
+
+    private void CONTACTKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CONTACTKeyPressed
+           char c =evt.getKeyChar();
+        if(Character.isLetter(c)){
+        CONTACT.setEditable(false);
+        JOptionPane.showMessageDialog(this, "Please enter number only");
+        }else{
+        CONTACT.setEditable(true);
+        }
+    }//GEN-LAST:event_CONTACTKeyPressed
 
     /**
      * @param args the command line arguments

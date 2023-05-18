@@ -78,9 +78,12 @@
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="99" green="ff" red="99" type="rgb"/>
+                </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Sylfaen" size="12" style="1"/>
+                  <Font name="Sylfaen" size="15" style="1"/>
                 </Property>
                 <Property name="opaque" type="boolean" value="false"/>
                 <Property name="placeholder" type="java.lang.String" value="ENTER NAME"/>
@@ -133,9 +136,12 @@
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="99" green="ff" red="99" type="rgb"/>
+                </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Sylfaen" size="12" style="1"/>
+                  <Font name="Sylfaen" size="15" style="1"/>
                 </Property>
                 <Property name="opaque" type="boolean" value="false"/>
                 <Property name="placeholder" type="java.lang.String" value="ENTER LASTNAME"/>
@@ -154,9 +160,12 @@
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="99" green="ff" red="99" type="rgb"/>
+                </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Sylfaen" size="12" style="1"/>
+                  <Font name="Sylfaen" size="15" style="1"/>
                 </Property>
                 <Property name="opaque" type="boolean" value="false"/>
                 <Property name="placeholder" type="java.lang.String" value="ENTER COURSE"/>
@@ -212,9 +221,12 @@
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="99" green="ff" red="99" type="rgb"/>
+                </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Sylfaen" size="12" style="1"/>
+                  <Font name="Sylfaen" size="15" style="1"/>
                 </Property>
                 <Property name="opaque" type="boolean" value="false"/>
                 <Property name="placeholder" type="java.lang.String" value="ENTER YEAR"/>
@@ -275,9 +287,12 @@
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="99" green="ff" red="99" type="rgb"/>
+                </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Sylfaen" size="12" style="1"/>
+                  <Font name="Sylfaen" size="15" style="1"/>
                 </Property>
                 <Property name="opaque" type="boolean" value="false"/>
                 <Property name="placeholder" type="java.lang.String" value="ENTER CONTACT"/>
@@ -414,9 +429,12 @@
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="99" green="ff" red="99" type="rgb"/>
+                </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Sylfaen" size="12" style="1"/>
+                  <Font name="Sylfaen" size="15" style="1"/>
                 </Property>
                 <Property name="opaque" type="boolean" value="false"/>
                 <Property name="placeholder" type="java.lang.String" value="ENTER ID"/>

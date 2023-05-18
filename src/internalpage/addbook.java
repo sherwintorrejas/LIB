@@ -145,8 +145,9 @@ if(genre.equals("")){
 
         EN.setBackground(new java.awt.Color(204, 0, 0));
         EN.setBorder(null);
+        EN.setForeground(new java.awt.Color(153, 255, 153));
         EN.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        EN.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        EN.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
         EN.setOpaque(false);
         EN.setPlaceholder("ENTER ISBN");
         jPanel10.add(EN, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 270, -1));
@@ -159,8 +160,9 @@ if(genre.equals("")){
 
         EBT.setBackground(new java.awt.Color(204, 0, 0));
         EBT.setBorder(null);
+        EBT.setForeground(new java.awt.Color(153, 255, 153));
         EBT.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        EBT.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        EBT.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
         EBT.setOpaque(false);
         EBT.setPlaceholder("ENTER BOOBK TITTLE");
         jPanel10.add(EBT, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 270, -1));
@@ -179,16 +181,18 @@ if(genre.equals("")){
 
         EG.setBackground(new java.awt.Color(204, 0, 0));
         EG.setBorder(null);
+        EG.setForeground(new java.awt.Color(153, 255, 153));
         EG.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        EG.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        EG.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
         EG.setOpaque(false);
         EG.setPlaceholder("ENTER GENRE");
         jPanel10.add(EG, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 270, -1));
 
         ED.setBackground(new java.awt.Color(204, 0, 0));
         ED.setBorder(null);
+        ED.setForeground(new java.awt.Color(153, 255, 153));
         ED.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        ED.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        ED.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
         ED.setOpaque(false);
         ED.setPlaceholder("ENTER EDITION");
         ED.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -212,8 +216,9 @@ if(genre.equals("")){
 
         QUANT.setBackground(new java.awt.Color(204, 0, 0));
         QUANT.setBorder(null);
+        QUANT.setForeground(new java.awt.Color(153, 255, 153));
         QUANT.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        QUANT.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
+        QUANT.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
         QUANT.setOpaque(false);
         QUANT.setPlaceholder("ENTER QUANTITY");
         QUANT.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -460,7 +465,6 @@ if(genre.equals("")){
     private javax.swing.JLabel line2;
     private javax.swing.JLabel line3;
     private javax.swing.JLabel line4;
-    private necesario.RSMaterialButtonCircle rSMaterialButtonCircle1;
     private necesario.RSMaterialButtonCircle rSMaterialButtonCircle2;
     private app.bolivia.swing.JCTextField search;
     // End of variables declaration//GEN-END:variables
