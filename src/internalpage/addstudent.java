@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +20,10 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import java.text.*; 
 import java.awt.print.*;
+import java.nio.file.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.*;
 import javax.swing.JTable;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import jdk.nashorn.internal.runtime.regexp.joni.Regex;
@@ -40,9 +45,114 @@ private Connection con;
         bi.setNorthPane(null);
         
     }
-   
+     public void imageUpdater(String existingFilePath, String newFilePath){
+        File existingFile = new File(existingFilePath);
+        if (existingFile.exists()) {
+            String parentDirectory = existingFile.getParent();
+            File newFile = new File(newFilePath);
+            String newFileName = newFile.getName();
+            File updatedFile = new File(parentDirectory, newFileName);
+            existingFile.delete();
+            try {
+                Files.copy(newFile.toPath(), updatedFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                System.out.println("Image updated successfully.");
+            } catch (IOException e) {
+                System.out.println("Error occurred while updating the image: ");
+            }
+        } else {
+            try{
+                Files.copy(selectedFile.toPath(), new File(destination).toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }catch(IOException e){
+                System.out.println("Error on update!");
+            }
+        }
+   }
+    
+        public static int getHeightFromWidth(String imagePath, int desiredWidth) {
+        try {
+    
+            File imageFile = new File(imagePath);
+            BufferedImage image = ImageIO.read(imageFile);
+          
+            int originalWidth = image.getWidth();
+            int originalHeight = image.getHeight();
+            
+    
+            int newHeight = (int) ((double) desiredWidth / originalWidth * originalHeight);
+            
+            return newHeight;
+        } catch (IOException ex) {
+            System.out.println("No image found!");
+        }
+        
+        return -1;
+    }
     
     
+public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
+    ImageIcon MyImage = null;
+        if(ImagePath !=null){
+            MyImage = new ImageIcon(ImagePath);
+        }else{
+            MyImage = new ImageIcon(pic);
+        }
+        
+    int newHeight = getHeightFromWidth(ImagePath, label.getWidth());
+
+    Image img = MyImage.getImage();
+    Image newImg = img.getScaledInstance(label.getWidth(), newHeight, Image.SCALE_SMOOTH);
+    ImageIcon image = new ImageIcon(newImg);
+    return image;
+}
+
+public int FileChecker(String path){
+        File file = new File(path);
+        String fileName = file.getName();
+        
+        Path filePath = Paths.get("src/images", fileName);
+        boolean fileExists = Files.exists(filePath);
+        
+        if (fileExists) {
+            return 1;
+        } else {
+            return 0;
+        }
+    
+    }
+    
+    
+    
+    
+    
+    public void img(){
+    JFileChooser fileChooser = new JFileChooser();
+                int returnValue = fileChooser.showOpenDialog(null);
+                
+                
+                
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        selectedFile = fileChooser.getSelectedFile();
+                        destination = "src/images/" + selectedFile.getName();
+                        path  = selectedFile.getAbsolutePath();
+                        
+                        
+                        if(FileChecker(path) == 1){
+                          JOptionPane.showMessageDialog(null, "File Already Exist, Rename or Choose another!");
+                            destination = "";
+                            path="";
+                        }else{
+                            image.setIcon(ResizeImage(path, null, image));
+                            System.out.println(""+destination);
+                            browse.setVisible(true);
+                            browse.setText("REMOVE");
+                        }
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "FILE ERROR"+ex);
+                    }
+                }
+    
+}
     
   public void reset(){
   ID.setText("");
@@ -51,7 +161,7 @@ private Connection con;
    EC.setText("");
    EY.setText("");
    ECT.setText("");
-   picture.setIcon(null);
+   image.setIcon(null);
    }
     public void search(String str){
     model = (DefaultTableModel) studentdet.getModel();
@@ -116,83 +226,75 @@ if(course.equals("")){
  JOptionPane.showMessageDialog(this, "PLEASE ENTER CONTACT");
  return false;
  } 
-    if(picture.getIcon()==null){
+    if(image.getIcon()==null){
  JOptionPane.showMessageDialog(this, "PLEASE ENTER PHOTO");
  return false;
  }
    return true;  
  }
      public void add(){
-      try{
+     int result=0;
+         try{
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_ba", "root", "");
-            String sql = "INSERT INTO student_details ( NAME, LASTNAME, COURSE, YEAR, CONTACT, PROFILE)values (?,?,?,?,?,?)"; 
+            String sql = "INSERT INTO student_details ( NAME, LASTNAME, COURSE, YEAR, CONTACT, IMAGE)values (?,?,?,?,?,?)"; 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, EN.getText());
             ps.setString(2, ELN.getText());
             ps.setString(3, EC.getText());
             ps.setString(4, EY.getText());
             ps.setString(5, ECT.getText());
-            ps.setBytes(6, pic);
+            ps.setString(6, destination);
             ps.executeUpdate();
-           
-            displayData();
-               reset(); 
+             result = 1;
+            Files.copy(selectedFile.toPath(), new File(destination).toPath(), StandardCopyOption.REPLACE_EXISTING); 
+               if(result == 1){
+               JOptionPane.showMessageDialog(null, "Successfully Save!");
+              displayData();
+               reset();
+           }else{
+                System.out.println("Saving Data Failed!");
+           }    
+             
         JOptionPane.showMessageDialog(this, "ADDED SUCCESSFULLY");
-            }catch(SQLException e){
+            }catch(Exception e){
                 System.err.println("Cannot connect to database: " + e.getMessage());
-            }
+     
      
      }
+     }
      public void update(){
+         int result=0;
          try {
          con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_ba", "root", "");
          int row = studentdet.getSelectedRow();
          String value = (studentdet.getModel().getValueAt(row, 0).toString());
-         String sql = "UPDATE student_details SET NAME=?, LASTNAME=?, COURSE=?, YEAR=?, CONTACT=?, PROFILE=? where ID="+value;
+         String sql = "UPDATE student_details SET NAME=?, LASTNAME=?, COURSE=?, YEAR=?, CONTACT=?, IMAGE=? where ID="+value;
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, EN.getText());
             ps.setString(2, ELN.getText());
             ps.setString(3, EC.getText());
             ps.setString(4, EY.getText());
             ps.setString(5, ECT.getText());
-            ps.setBytes(6, pic);
+            ps.setString(6, destination);
             ps.executeUpdate();
-           if(row == 0){
-            JOptionPane.showMessageDialog(null, "Updated FAILED!");
-        }else{
-           JOptionPane.showMessageDialog(null, "Updated Successfully!");
-           displayData();
-           reset();
-        }
-         } catch (Exception e) {
-             e.printStackTrace();
-         }
+        imageUpdater(oldpath, path);
+           
+           File existingFile = new File(oldpath);
+            if (existingFile.exists()) {
+                existingFile.delete();
+            }
+           
+           JOptionPane.showMessageDialog(null, "Successfully Updated!");
+           }catch(SQLException e){
+             JOptionPane.showMessageDialog(null,"Database Connection Error!"+e);
+           }
      }
-     public void upload(){
-     JFileChooser chose = new JFileChooser();
-     chose.showOpenDialog(null);
-     File f = chose.getSelectedFile();
-         filename = f.getAbsolutePath();
-         ImageIcon ii = new ImageIcon(filename);
-         Image img = ii.getImage().getScaledInstance(picture.getWidth(), picture.getHeight(), Image.SCALE_SMOOTH);
-     picture.setIcon(new ImageIcon(img));
-         try {
-             File ig = new File(filename);
-             FileInputStream is = new FileInputStream(ig);
-             ByteArrayOutputStream bos =  new ByteArrayOutputStream();
-             byte[] buf = new byte [1024];
-             for (int rnum; (rnum = is.read(buf))!=-1;){
-             bos.write(buf, 0, rnum);
-             }
-             pic=bos.toByteArray();
-         } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, e);
-         }
-          
-    }
+     
+  
      public void table(){
      int row = studentdet.getSelectedRow();
      int cc = studentdet.getSelectedColumn();
+    ImageIcon format;
      String tc = studentdet.getModel().getValueAt(row, 0).toString();
              try{
             con= DriverManager.getConnection("jdbc:mysql://localhost:3306/library_ba", "root", "");
@@ -206,12 +308,10 @@ if(course.equals("")){
             String cors=rs.getString("COURSE");
             String yr=rs.getString("YEAR");
             String cont=rs.getString("CONTACT");
-            byte[] img = rs.getBytes("PROFILE");
-            format = new ImageIcon(img);
-            Image im =format.getImage().getScaledInstance(picture.getWidth(), picture.getHeight(), Image.SCALE_SMOOTH);
-            picture.setIcon(new ImageIcon(im));
-            
-            
+           String im = rs.getString("IMAGE");
+           format = new ImageIcon(im);
+           Image m = format.getImage().getScaledInstance(image.getWidth(), image.getHeight(), Image.SCALE_SMOOTH);
+            image.setIcon(new ImageIcon(m));
                 ID.setText(""+id);
                 EN.setText(name);
                 ELN.setText(lname);
@@ -261,8 +361,8 @@ if(course.equals("")){
         line4 = new javax.swing.JLabel();
         line5 = new javax.swing.JLabel();
         ID = new app.bolivia.swing.JCTextField();
-        upload = new necesario.RSMaterialButtonCircle();
-        picture = new javax.swing.JLabel();
+        image = new javax.swing.JLabel();
+        browse = new rojerusan.RSMaterialButtonCircle();
         jLabel2 = new javax.swing.JLabel();
         search = new app.bolivia.swing.JCTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -414,7 +514,7 @@ if(course.equals("")){
         line1.setForeground(new java.awt.Color(25, 20, 20));
         line1.setText("__________________________");
         line1.setToolTipText("");
-        jPanel10.add(line1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 200, 30));
+        jPanel10.add(line1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 190, 30));
 
         line2.setForeground(new java.awt.Color(25, 20, 20));
         line2.setText("__________________________");
@@ -450,17 +550,17 @@ if(course.equals("")){
         });
         jPanel10.add(ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 180, 32));
 
-        upload.setText("UPLOAD");
-        upload.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                uploadActionPerformed(evt);
+        image.setBackground(new java.awt.Color(255, 255, 255));
+        image.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        image.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                imageKeyPressed(evt);
             }
         });
-        jPanel10.add(upload, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 100, 40));
+        jPanel10.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, 90, 100));
 
-        picture.setBackground(new java.awt.Color(255, 255, 255));
-        picture.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel10.add(picture, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 100, 110));
+        browse.setText("BROWSE");
+        jPanel10.add(browse, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 110, 50));
 
         jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 540));
 
@@ -593,11 +693,6 @@ if(course.equals("")){
         }
     }//GEN-LAST:event_EYKeyPressed
 
-    private void uploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadActionPerformed
-     
-      upload();
-    }//GEN-LAST:event_uploadActionPerformed
-
     private void studentdetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentdetMouseClicked
        table();
     }//GEN-LAST:event_studentdetMouseClicked
@@ -615,6 +710,10 @@ if(course.equals("")){
         }
     }//GEN-LAST:event_rSMaterialButtonCircle2ActionPerformed
 
+    private void imageKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_imageKeyPressed
+        img();
+    }//GEN-LAST:event_imageKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private necesario.RSMaterialButtonCircle ADD;
@@ -626,6 +725,8 @@ if(course.equals("")){
     private app.bolivia.swing.JCTextField EY;
     private app.bolivia.swing.JCTextField ID;
     private necesario.RSMaterialButtonCircle UPDATE;
+    private rojerusan.RSMaterialButtonCircle browse;
+    private javax.swing.JLabel image;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -643,14 +744,13 @@ if(course.equals("")){
     private javax.swing.JLabel line3;
     private javax.swing.JLabel line4;
     private javax.swing.JLabel line5;
-    private javax.swing.JLabel picture;
     private necesario.RSMaterialButtonCircle rSMaterialButtonCircle2;
     private app.bolivia.swing.JCTextField search;
     private rojeru_san.complementos.RSTableMetro studentdet;
-    private necesario.RSMaterialButtonCircle upload;
     // End of variables declaration//GEN-END:variables
-String filename = null;
-byte[] pic = null; 
-private ImageIcon format = null;
 
+public String destination = "";
+    File selectedFile;
+    public String oldpath;
+    String path;
 }

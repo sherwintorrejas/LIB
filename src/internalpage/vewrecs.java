@@ -40,7 +40,7 @@ DefaultTableModel model;
         try {
              con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_ba", "root", "");
              Statement st = con.createStatement();
-             ResultSet rs = st.executeQuery("select * from xample");
+             ResultSet rs = st.executeQuery("select * from issued_bookdet");
              
              while(rs.next()){
                String id = rs.getString("ISSUED_ID");
@@ -85,7 +85,7 @@ DefaultTableModel model;
   
       try {
            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_ba", "root", "");
-           String sql = "select * from xample where ISSUED BETWEEN ? and ?";
+           String sql = "select * from issued_bookdet where ISSUED BETWEEN ? and ?";
            PreparedStatement pst = con.prepareStatement(sql);
            pst.setDate(1, sidate);
           pst.setDate(2, sddate);

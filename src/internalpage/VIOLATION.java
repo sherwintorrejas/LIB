@@ -41,7 +41,7 @@ DefaultTableModel model;
   Date todayDate = new Date(l);
         try {
              con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_ba", "root", "");
-             PreparedStatement pst = con.prepareStatement("select * from xample where DUE < ? and STATUS = ?");
+             PreparedStatement pst = con.prepareStatement("select * from issued_bookdet where DUE < ? and STATUS = ?");
              pst.setDate(1, todayDate);
              pst.setString(2, "PENDING");
              

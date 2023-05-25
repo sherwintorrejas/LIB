@@ -10,9 +10,22 @@ import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.*;
+import java.util.Date;
+import java.util.Calendar;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.awt.event.*;
+import java.awt.print.PrinterException;
+import java.beans.*;
+import javax.swing.*;
+import java.text.*; 
+import java.awt.print.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import net.proteanit.sql.DbUtils;
@@ -24,11 +37,29 @@ private Connection connection;
     public issuebook() {
         initComponents();
         
-
+gslip();
           this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI bi = (BasicInternalFrameUI) this.getUI();
         bi.setNorthPane(null);
         
+        Calendar currentDate = Calendar.getInstance();
+        currentDate.set(Calendar.HOUR_OF_DAY, 0);
+        currentDate.set(Calendar.MINUTE, 0);
+        currentDate.set(Calendar.SECOND, 0);
+        currentDate.set(Calendar.MILLISECOND, 0);
+     ISSUEDATE.addPropertyChangeListener("date", new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                Calendar selectedDate = Calendar.getInstance();
+                selectedDate.setTime((Date) evt.getNewValue());
+                if (selectedDate.before(currentDate)) {
+                    ISSUEDATE.setDate(currentDate.getTime());
+                     DUEDATE.setDate(currentDate.getTime());
+                }
+            }
+     
+     });
+     
     }
   private void getbookdet(){
  int bookid= Integer.parseInt(isbn.getText());
@@ -77,6 +108,51 @@ private Connection connection;
  ex.printStackTrace();
  }
  }
+ 
+ 
+ 
+ public void gslip(){
+
+ slip.setText("*****************************************************\n");
+ slip.setText(slip.getText()+"-------------------BORROWERS SLIP--------------------\n");
+ slip.setText(slip.getText()+"*****************************************************\n");
+ 
+ Date date = new Date();  // or replace with your own date object
+
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); // Replace with your desired format
+        String formattedDate = dateFormat.format(date);
+ 
+
+  slip.setText(slip.getText()+"\nDATE: "+formattedDate+"\n");
+ slip.setText(slip.getText()+"\nISBN: "+isbn.getText()+"\n");
+ slip.setText(slip.getText()+"\nSTUDENT ID: "+ studentid.getText()+"\n");
+ slip.setText(slip.getText()+"\nISSUED DATE: "+  ISSUEDATE.getDate()+"\n");
+ slip.setText(slip.getText()+"\nDUE DATE: "+  DUEDATE.getDate()+"\n");
+ 
+ 
+ slip.setText(slip.getText()+"\nSIGNATURE:\n\n");
+ slip.setText(slip.getText()+"\n____________\t_____________\n");
+ slip.setText(slip.getText()+"LIBRARIAN\t\tBORROWER\n");
+ 
+ 
+ 
+ 
+ }
+    //print
+ public void print(){
+ 
+     try {
+         slip.print();
+     } catch (Exception e) {
+     JOptionPane.showMessageDialog(null, "print failed"+e);
+     }
+ 
+ 
+ 
+ 
+ }
+         
+         
  //issue book
  public boolean issuebook(){
      boolean isissued = false;
@@ -97,7 +173,7 @@ private Connection connection;
   
      try {
      connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_ba", "root", "");
-     String sql = "insert into xample(ISBN,ID,ISSUED,DUE,STATUS) values(?,?,?,?,?)";
+     String sql = "insert into issued_bookdet(ISBN,ID,ISSUED,DUE,STATUS) values(?,?,?,?,?)";
      
      PreparedStatement pst = connection.prepareStatement(sql);
   pst.setInt(1, bookid);
@@ -113,12 +189,14 @@ private Connection connection;
   }else{
   isissued = false;
   }
+
      } catch (Exception e) {
       JOptionPane.showMessageDialog(null, e);
      
      }
   return isissued;
  }
+
  //UPDATE BOOK QUANT
  
  public void updatebookquant(){
@@ -152,7 +230,7 @@ private Connection connection;
   
      try {
           connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_ba", "root", "");
-          String sql = "select * from issue_book_details where ISBN = ? and ID = ? and STATUS =?";
+          String sql = "select * from issued_bookdet where ISBN = ? and ID = ? and STATUS =?";
           PreparedStatement pst = connection.prepareStatement(sql);
           
         pst.setInt(1, bookid);
@@ -243,8 +321,9 @@ String studenti = studentid.getText();
         rSMaterialButtonCircle1 = new necesario.RSMaterialButtonCircle();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jScrollPane1 = new javax.swing.JScrollPane();
+        slip = new javax.swing.JTextArea();
+        print = new rojerusan.RSMaterialButtonCircle();
 
         jPanel1.setBackground(new java.awt.Color(0, 58, 140));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -346,63 +425,63 @@ String studenti = studentid.getText();
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel9.setText("ISBN:");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 110, 30));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 110, 30));
 
         jLabel10.setFont(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel10.setText("BOOK TITTLE:");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 130, 30));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 160, 130, 30));
 
         jLabel11.setFont(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel11.setText("GENRE:");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 110, 30));
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 110, 30));
 
         jLabel12.setFont(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel12.setText("EDITION:");
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 120, 30));
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 280, 120, 30));
 
         jLabel16.setFont(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel16.setText("QUANTITY:");
-        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 120, 30));
+        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 330, 120, 30));
 
         i_bn.setFont(new java.awt.Font("Yu Gothic UI", 1, 13)); // NOI18N
         i_bn.setForeground(new java.awt.Color(102, 255, 102));
         i_bn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(i_bn, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 150, 30));
+        jPanel2.add(i_bn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 150, 30));
 
         T_TLE.setFont(new java.awt.Font("Yu Gothic UI", 1, 13)); // NOI18N
         T_TLE.setForeground(new java.awt.Color(102, 255, 102));
         T_TLE.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(T_TLE, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 150, 30));
+        jPanel2.add(T_TLE, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, 150, 30));
 
         GEN_RE.setFont(new java.awt.Font("Yu Gothic UI", 1, 13)); // NOI18N
         GEN_RE.setForeground(new java.awt.Color(102, 255, 102));
         GEN_RE.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(GEN_RE, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 150, 30));
+        jPanel2.add(GEN_RE, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 150, 30));
 
         ED_D.setFont(new java.awt.Font("Yu Gothic UI", 1, 13)); // NOI18N
         ED_D.setForeground(new java.awt.Color(102, 255, 102));
         ED_D.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(ED_D, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, 150, 30));
+        jPanel2.add(ED_D, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 270, 150, 30));
 
         QUANT.setFont(new java.awt.Font("Yu Gothic UI", 1, 13)); // NOI18N
         QUANT.setForeground(new java.awt.Color(102, 255, 102));
         QUANT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(QUANT, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, 150, 30));
+        jPanel2.add(QUANT, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 320, 150, 30));
 
         bookerror.setFont(new java.awt.Font("Yu Gothic UI", 1, 13)); // NOI18N
         bookerror.setForeground(new java.awt.Color(255, 0, 0));
         bookerror.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(bookerror, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 280, 30));
+        jPanel2.add(bookerror, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 250, 30));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 300, 540));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 280, 540));
 
         isbn.setBackground(new java.awt.Color(0, 58, 140));
         isbn.setBorder(null);
@@ -426,7 +505,7 @@ String studenti = studentid.getText();
                 isbnKeyPressed(evt);
             }
         });
-        jPanel1.add(isbn, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 150, -1, -1));
+        jPanel1.add(isbn, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 120, -1, -1));
 
         jLabel13.setFont(new java.awt.Font("Sylfaen", 1, 18)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
@@ -438,31 +517,31 @@ String studenti = studentid.getText();
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("ISBN:");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 120, 90, 30));
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 90, 90, 30));
 
         jLabel15.setFont(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setText("STUDENT ID:");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 190, 110, 40));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 160, 110, 40));
 
         jLabel17.setFont(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setText("ISSUE DATE");
-        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 280, 140, 30));
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 230, 140, 30));
 
         DUEDATE.setDateFormatString("MM/ dd/ yy");
         DUEDATE.setFont(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
-        jPanel1.add(DUEDATE, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 380, 220, 30));
+        jPanel1.add(DUEDATE, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 330, 220, 30));
 
         jLabel18.setFont(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("DUE DATE");
-        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 350, 140, 30));
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 300, 140, 30));
 
         ISSUEDATE.setDateFormatString("MM/ dd/ yy");
         ISSUEDATE.setFont(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
-        jPanel1.add(ISSUEDATE, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 310, 220, 30));
+        jPanel1.add(ISSUEDATE, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 260, 220, 30));
 
         studentid.setBackground(new java.awt.Color(0, 58, 140));
         studentid.setBorder(null);
@@ -481,25 +560,50 @@ String studenti = studentid.getText();
                 studentidKeyPressed(evt);
             }
         });
-        jPanel1.add(studentid, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 220, -1, -1));
+        jPanel1.add(studentid, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 190, -1, -1));
 
+        rSMaterialButtonCircle1.setBackground(new java.awt.Color(153, 0, 0));
         rSMaterialButtonCircle1.setText("ISSUE BOOK");
         rSMaterialButtonCircle1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rSMaterialButtonCircle1ActionPerformed(evt);
             }
         });
-        jPanel1.add(rSMaterialButtonCircle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 420, 270, 70));
+        jPanel1.add(rSMaterialButtonCircle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 370, 230, 40));
 
         jLabel19.setForeground(new java.awt.Color(25, 20, 20));
         jLabel19.setText("_______________________________");
-        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 230, 210, 40));
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 200, 210, 40));
 
         jLabel20.setForeground(new java.awt.Color(25, 20, 20));
         jLabel20.setText("_______________________________");
-        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 160, 210, 40));
+        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 130, 210, 40));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 540));
+        slip.setColumns(20);
+        slip.setRows(5);
+        jScrollPane1.setViewportView(slip);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 450, 300, 90));
+
+        print.setBackground(new java.awt.Color(153, 0, 0));
+        print.setText("print");
+        print.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printActionPerformed(evt);
+            }
+        });
+        jPanel1.add(print, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 410, 230, 40));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -519,7 +623,9 @@ String studenti = studentid.getText();
      
         if(issuebook()== true){
         JOptionPane.showMessageDialog(this, "BOOK ISSUED SUCCESSFULLY");
+            gslip();
         updatebookquant();
+       
         }else{
         JOptionPane.showMessageDialog(this, "CAN'T ISSUED BOOK");
       
@@ -564,6 +670,10 @@ String studenti = studentid.getText();
         }
     }//GEN-LAST:event_studentidKeyPressed
 
+    private void printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printActionPerformed
+      print();
+    }//GEN-LAST:event_printActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser DUEDATE;
@@ -601,9 +711,12 @@ String studenti = studentid.getText();
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lnme;
     private javax.swing.JLabel nme;
+    private rojerusan.RSMaterialButtonCircle print;
     private necesario.RSMaterialButtonCircle rSMaterialButtonCircle1;
+    private javax.swing.JTextArea slip;
     private javax.swing.JLabel studenterror;
     private app.bolivia.swing.JCTextField studentid;
     private javax.swing.JLabel yr;

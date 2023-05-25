@@ -41,7 +41,7 @@ DefaultTableModel model;
         try {
              con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_ba", "root", "");
              Statement st = con.createStatement();
-             ResultSet rs = st.executeQuery("select * from xample where STATUS ='"+"PENDING"+"'");
+             ResultSet rs = st.executeQuery("select * from issued_bookdet where STATUS ='"+"PENDING"+"'");
              
              while(rs.next()){
              String id = rs.getString("ISSUED_ID");

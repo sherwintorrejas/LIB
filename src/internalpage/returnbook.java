@@ -37,7 +37,7 @@ private Connection connection;
  
     try {
          connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_ba", "root", "");
-         String sql = "SELECT * FROM xample where ISBN = ? and ID = ? and STATUS =?";
+         String sql = "SELECT * FROM issued_bookdet where ISBN = ? and ID = ? and STATUS =?";
         PreparedStatement pst = connection.prepareStatement(sql);
         
         pst.setInt(1, bookid);
@@ -72,7 +72,7 @@ boolean isreturnbook = false;
  int sid= Integer.parseInt(STUDid.getText());
     try {
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_ba", "root", "");
-         String sql = "update xample set STATUS = ? where ID = ? and ISBN = ? and STATUS = ?";
+         String sql = "update issued_bookdet set STATUS = ? where ID = ? and ISBN = ? and STATUS = ?";
          PreparedStatement pst = connection.prepareStatement(sql);
          pst.setString(1, "RETURNED");
         pst.setInt(2, sid);
