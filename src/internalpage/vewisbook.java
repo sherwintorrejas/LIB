@@ -105,11 +105,11 @@ DefaultTableModel model;
             }
         ));
         DETAILS.setColorBackgoundHead(new java.awt.Color(0, 153, 153));
-        DETAILS.setColorFilasBackgound2(new java.awt.Color(255, 255, 255));
         DETAILS.setFuenteFilas(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
         DETAILS.setFuenteFilasSelect(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
         DETAILS.setFuenteHead(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
-        DETAILS.setGridColor(new java.awt.Color(0, 0, 0));
+        DETAILS.setGridColor(new java.awt.Color(255, 255, 255));
+        DETAILS.setGrosorBordeFilas(0);
         jScrollPane1.setViewportView(DETAILS);
 
         jPanel10.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 810, 380));

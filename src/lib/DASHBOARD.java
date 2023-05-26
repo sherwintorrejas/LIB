@@ -544,7 +544,7 @@ public class DASHBOARD extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JDesktopPane maindesk;
+    public javax.swing.JDesktopPane maindesk;
     private javax.swing.JLabel minimize;
     // End of variables declaration//GEN-END:variables
 }

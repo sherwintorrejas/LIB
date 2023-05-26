@@ -165,6 +165,11 @@ if(genre.equals("")){
         EBT.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
         EBT.setOpaque(false);
         EBT.setPlaceholder("ENTER BOOBK TITTLE");
+        EBT.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                EBTKeyReleased(evt);
+            }
+        });
         jPanel10.add(EBT, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 270, -1));
 
         jLabel3.setFont(new java.awt.Font("Sylfaen", 1, 18)); // NOI18N
@@ -186,6 +191,11 @@ if(genre.equals("")){
         EG.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
         EG.setOpaque(false);
         EG.setPlaceholder("ENTER GENRE");
+        EG.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                EGKeyReleased(evt);
+            }
+        });
         jPanel10.add(EG, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 270, -1));
 
         ED.setBackground(new java.awt.Color(204, 0, 0));
@@ -293,8 +303,8 @@ if(genre.equals("")){
             }
         ));
         BOOKDET.setColorBackgoundHead(new java.awt.Color(204, 0, 0));
-        BOOKDET.setColorFilasBackgound2(new java.awt.Color(255, 255, 255));
         BOOKDET.setFuenteHead(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
+        BOOKDET.setGrosorBordeFilas(0);
         BOOKDET.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BOOKDETMouseClicked(evt);
@@ -439,6 +449,20 @@ if(genre.equals("")){
             JOptionPane.showMessageDialog(this, "cannot print");
         }
     }//GEN-LAST:event_rSMaterialButtonCircle2ActionPerformed
+
+    private void EBTKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EBTKeyReleased
+       int pos = EBT.getCaretPosition();
+        EBT.setText(EBT.getText().toUpperCase());
+        EBT.setCaretPosition(pos);
+        
+    }//GEN-LAST:event_EBTKeyReleased
+
+    private void EGKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EGKeyReleased
+    int pos = EG.getCaretPosition();
+        EG.setText(EG.getText().toUpperCase());
+        EG.setCaretPosition(pos);
+        
+    }//GEN-LAST:event_EGKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

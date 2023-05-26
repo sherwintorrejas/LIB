@@ -21,6 +21,19 @@ import javax.swing.JOptionPane;
 import java.text.*; 
 import java.awt.print.*;
 import java.nio.file.*;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.*;
@@ -61,7 +74,7 @@ private Connection con;
             }
         } else {
             try{
-                Files.copy(selectedFile.toPath(), new File(destination).toPath(), StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(sfile.toPath(), new File(picpath).toPath(), StandardCopyOption.REPLACE_EXISTING);
             }catch(IOException e){
                 System.out.println("Error on update!");
             }
@@ -132,18 +145,18 @@ public int FileChecker(String path){
                 
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     try {
-                        selectedFile = fileChooser.getSelectedFile();
-                        destination = "src/images/" + selectedFile.getName();
-                        path  = selectedFile.getAbsolutePath();
+                        sfile = fileChooser.getSelectedFile();
+                        picpath = "src/images/" + sfile.getName();
+                        path  = sfile.getAbsolutePath();
                         
                         
                         if(FileChecker(path) == 1){
                           JOptionPane.showMessageDialog(null, "File Already Exist, Rename or Choose another!");
-                            destination = "";
+                            picpath = "";
                             path="";
                         }else{
                             image.setIcon(ResizeImage(path, null, image));
-                            System.out.println(""+destination);
+                            System.out.println(""+picpath);
                             browse.setVisible(true);
                             browse.setText("REMOVE");
                         }
@@ -158,8 +171,8 @@ public int FileChecker(String path){
   ID.setText("");
       EN.setText("");
    ELN.setText("");
-   EC.setText("");
-   EY.setText("");
+   EC.setSelectedItem("0");
+   EY.setSelectedItem("0");
    ECT.setText("");
    image.setIcon(null);
    }
@@ -203,8 +216,6 @@ public int FileChecker(String path){
      public boolean validation(){
   String name= EN.getText();
 String lastname= ELN.getText();
-String course= EC.getText();
-String year= EY.getText();
 String contact= ECT.getText();
  if (name.equals("")){
  JOptionPane.showMessageDialog(this, "PLEASE ENTER NAME");
@@ -213,15 +224,7 @@ String contact= ECT.getText();
  if(lastname.equals("")){
  JOptionPane.showMessageDialog(this, "PLEASE ENTER LASTNAME");
  return false;
- }
-if(course.equals("")){
- JOptionPane.showMessageDialog(this, "PLEASE ENTER COURSE");
- return false;
- }     
- if(year.equals("")){
- JOptionPane.showMessageDialog(this, "PLEASE ENTER YEAR");
- return false;
- }    
+ }       
    if(contact.equals("")){
  JOptionPane.showMessageDialog(this, "PLEASE ENTER CONTACT");
  return false;
@@ -240,13 +243,13 @@ if(course.equals("")){
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, EN.getText());
             ps.setString(2, ELN.getText());
-            ps.setString(3, EC.getText());
-            ps.setString(4, EY.getText());
+            ps.setString(3, EC.getSelectedItem().toString());
+            ps.setString(4, EY.getSelectedItem().toString());
             ps.setString(5, ECT.getText());
-            ps.setString(6, destination);
+            ps.setString(6, picpath);
             ps.executeUpdate();
              result = 1;
-            Files.copy(selectedFile.toPath(), new File(destination).toPath(), StandardCopyOption.REPLACE_EXISTING); 
+            Files.copy(sfile.toPath(), new File(picpath).toPath(), StandardCopyOption.REPLACE_EXISTING); 
                if(result == 1){
                JOptionPane.showMessageDialog(null, "Successfully Save!");
               displayData();
@@ -262,6 +265,7 @@ if(course.equals("")){
      
      }
      }
+   
      public void update(){
          int result=0;
          try {
@@ -272,14 +276,14 @@ if(course.equals("")){
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, EN.getText());
             ps.setString(2, ELN.getText());
-            ps.setString(3, EC.getText());
-            ps.setString(4, EY.getText());
+            ps.setString(3, EC.getSelectedItem().toString());
+            ps.setString(4, EY.getSelectedItem().toString());
             ps.setString(5, ECT.getText());
-            ps.setString(6, destination);
-            ps.executeUpdate();
-        imageUpdater(oldpath, path);
+            ps.setString(6, picpath);
+            ps.execute();
+             imageUpdater(OP, path);
            
-           File existingFile = new File(oldpath);
+           File existingFile = new File(OP);
             if (existingFile.exists()) {
                 existingFile.delete();
             }
@@ -308,15 +312,13 @@ if(course.equals("")){
             String cors=rs.getString("COURSE");
             String yr=rs.getString("YEAR");
             String cont=rs.getString("CONTACT");
-           String im = rs.getString("IMAGE");
-           format = new ImageIcon(im);
-           Image m = format.getImage().getScaledInstance(image.getWidth(), image.getHeight(), Image.SCALE_SMOOTH);
-            image.setIcon(new ImageIcon(m));
+            image.setIcon(ResizeImage(rs.getString("IMAGE"), null,image));
+                OP = rs.getString("IMAGE");
                 ID.setText(""+id);
                 EN.setText(name);
                 ELN.setText(lname);
-                EC.setText(cors);
-                EY.setText(yr);
+                EC.setSelectedItem(cors);
+                EY.setSelectedItem(yr);
                 ECT.setText(cont);
                 
          
@@ -344,10 +346,8 @@ if(course.equals("")){
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         ELN = new app.bolivia.swing.JCTextField();
-        EC = new app.bolivia.swing.JCTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        EY = new app.bolivia.swing.JCTextField();
         DELETE = new necesario.RSMaterialButtonCircle();
         ADD = new necesario.RSMaterialButtonCircle();
         UPDATE = new necesario.RSMaterialButtonCircle();
@@ -358,11 +358,11 @@ if(course.equals("")){
         line1 = new javax.swing.JLabel();
         line2 = new javax.swing.JLabel();
         line3 = new javax.swing.JLabel();
-        line4 = new javax.swing.JLabel();
-        line5 = new javax.swing.JLabel();
         ID = new app.bolivia.swing.JCTextField();
         image = new javax.swing.JLabel();
         browse = new rojerusan.RSMaterialButtonCircle();
+        EY = new javax.swing.JComboBox<>();
+        EC = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         search = new app.bolivia.swing.JCTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -390,6 +390,11 @@ if(course.equals("")){
         EN.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
         EN.setOpaque(false);
         EN.setPlaceholder("ENTER NAME");
+        EN.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ENKeyReleased(evt);
+            }
+        });
         jPanel10.add(EN, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 180, -1));
 
         jLabel3.setFont(new java.awt.Font("Sylfaen", 1, 18)); // NOI18N
@@ -411,21 +416,12 @@ if(course.equals("")){
         ELN.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
         ELN.setOpaque(false);
         ELN.setPlaceholder("ENTER LASTNAME");
-        jPanel10.add(ELN, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 180, -1));
-
-        EC.setBackground(new java.awt.Color(204, 0, 0));
-        EC.setBorder(null);
-        EC.setForeground(new java.awt.Color(153, 255, 153));
-        EC.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        EC.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
-        EC.setOpaque(false);
-        EC.setPlaceholder("ENTER COURSE");
-        EC.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                ECKeyTyped(evt);
+        ELN.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ELNKeyReleased(evt);
             }
         });
-        jPanel10.add(EC, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 180, -1));
+        jPanel10.add(ELN, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 180, -1));
 
         jLabel5.setFont(new java.awt.Font("Sylfaen", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -438,20 +434,6 @@ if(course.equals("")){
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("YEAR:");
         jPanel10.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 120, 32));
-
-        EY.setBackground(new java.awt.Color(204, 0, 0));
-        EY.setBorder(null);
-        EY.setForeground(new java.awt.Color(153, 255, 153));
-        EY.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        EY.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
-        EY.setOpaque(false);
-        EY.setPlaceholder("ENTER YEAR");
-        EY.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                EYKeyPressed(evt);
-            }
-        });
-        jPanel10.add(EY, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 180, -1));
 
         DELETE.setText("DELETE");
         DELETE.addActionListener(new java.awt.event.ActionListener() {
@@ -526,16 +508,6 @@ if(course.equals("")){
         line3.setToolTipText("");
         jPanel10.add(line3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 200, 30));
 
-        line4.setForeground(new java.awt.Color(25, 20, 20));
-        line4.setText("__________________________");
-        line4.setToolTipText("");
-        jPanel10.add(line4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 200, 30));
-
-        line5.setForeground(new java.awt.Color(25, 20, 20));
-        line5.setText("__________________________");
-        line5.setToolTipText("");
-        jPanel10.add(line5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 200, 30));
-
         ID.setBackground(new java.awt.Color(204, 0, 0));
         ID.setBorder(null);
         ID.setForeground(new java.awt.Color(153, 255, 153));
@@ -560,7 +532,28 @@ if(course.equals("")){
         jPanel10.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, 90, 100));
 
         browse.setText("BROWSE");
+        browse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                browseActionPerformed(evt);
+            }
+        });
         jPanel10.add(browse, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 110, 50));
+
+        EY.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1ST", "2ND", "3RD", "4TH" }));
+        jPanel10.add(EY, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 150, 30));
+
+        EC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BSBA", "BSIT", "BSHM", "BEED", "BED", "BSCRIM", "BSTM", " " }));
+        EC.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ECItemStateChanged(evt);
+            }
+        });
+        EC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ECActionPerformed(evt);
+            }
+        });
+        jPanel10.add(EC, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 150, 30));
 
         jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 540));
 
@@ -596,6 +589,7 @@ if(course.equals("")){
             }
         ));
         studentdet.setFont(new java.awt.Font("Yu Gothic UI", 1, 10)); // NOI18N
+        studentdet.setGrosorBordeFilas(0);
         studentdet.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 studentdetMouseClicked(evt);
@@ -678,27 +672,12 @@ if(course.equals("")){
         search(seachst);
     }//GEN-LAST:event_searchKeyReleased
 
-    private void ECKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ECKeyTyped
-
-    }//GEN-LAST:event_ECKeyTyped
-
-    private void EYKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EYKeyPressed
-        char c =evt.getKeyChar();
-        if(Character.isLetter(c)){
-            EY.setEditable(false);
-            JOptionPane.showMessageDialog(this, "Please enter number only");
-        }else{
-            EY.setEditable(true);
-
-        }
-    }//GEN-LAST:event_EYKeyPressed
-
     private void studentdetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentdetMouseClicked
        table();
     }//GEN-LAST:event_studentdetMouseClicked
 
     private void rSMaterialButtonCircle2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle2ActionPerformed
-        MessageFormat head = new MessageFormat("BOOKS");
+        MessageFormat head = new MessageFormat("STUDENTS");
         MessageFormat FOOT = new MessageFormat("Page{0, number , integer}");
 
         try {
@@ -714,15 +693,66 @@ if(course.equals("")){
         img();
     }//GEN-LAST:event_imageKeyPressed
 
+    private void ELNKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ELNKeyReleased
+       int pos =  ELN.getCaretPosition();
+         ELN.setText( ELN.getText().toUpperCase());
+         ELN.setCaretPosition(pos);
+        
+    }//GEN-LAST:event_ELNKeyReleased
+
+    private void ENKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ENKeyReleased
+        int pos =  EN.getCaretPosition();
+         EN.setText( EN.getText().toUpperCase());
+         EN.setCaretPosition(pos);
+        
+    }//GEN-LAST:event_ENKeyReleased
+
+    private void browseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+                int returnValue = fileChooser.showOpenDialog(null);
+                
+                
+                
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        sfile = fileChooser.getSelectedFile();
+                        picpath = "src/images/" + sfile.getName();
+                        path  = sfile.getAbsolutePath();
+                        
+                        
+                        if(FileChecker(path) == 1){
+                          JOptionPane.showMessageDialog(null, "File Already Exist, Rename or Choose another!");
+                            picpath = "";
+                            path="";
+                        }else{
+                            image.setIcon(ResizeImage(path, null, image));
+                            System.out.println(""+picpath);
+                            browse.setVisible(true);
+                            browse.setText("REMOVE");
+                        }
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "FILE "+ex);
+                    }
+                }
+    }//GEN-LAST:event_browseActionPerformed
+
+    private void ECItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ECItemStateChanged
+       
+    }//GEN-LAST:event_ECItemStateChanged
+
+    private void ECActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ECActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ECActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private necesario.RSMaterialButtonCircle ADD;
     private necesario.RSMaterialButtonCircle DELETE;
-    private app.bolivia.swing.JCTextField EC;
+    private javax.swing.JComboBox<String> EC;
     private app.bolivia.swing.JCTextField ECT;
     private app.bolivia.swing.JCTextField ELN;
     private app.bolivia.swing.JCTextField EN;
-    private app.bolivia.swing.JCTextField EY;
+    private javax.swing.JComboBox<String> EY;
     private app.bolivia.swing.JCTextField ID;
     private necesario.RSMaterialButtonCircle UPDATE;
     private rojerusan.RSMaterialButtonCircle browse;
@@ -742,15 +772,13 @@ if(course.equals("")){
     private javax.swing.JLabel line1;
     private javax.swing.JLabel line2;
     private javax.swing.JLabel line3;
-    private javax.swing.JLabel line4;
-    private javax.swing.JLabel line5;
     private necesario.RSMaterialButtonCircle rSMaterialButtonCircle2;
     private app.bolivia.swing.JCTextField search;
     private rojeru_san.complementos.RSTableMetro studentdet;
     // End of variables declaration//GEN-END:variables
 
-public String destination = "";
-    File selectedFile;
-    public String oldpath;
+    public String picpath = "";
+    File sfile;
+    public String OP;
     String path;
 }

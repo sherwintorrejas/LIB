@@ -13,7 +13,11 @@ import java.sql.*;
 import javax.swing.JDesktopPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import lib.bookdet;
+import lib.studentdet;
 import net.proteanit.sql.DbUtils;
 public class dashabord extends javax.swing.JInternalFrame {
 private Connection con;
@@ -108,6 +112,11 @@ DefaultTableModel model;
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel2MouseClicked(evt);
+            }
+        });
 
         jPanel6.setBackground(new java.awt.Color(0, 204, 0));
 
@@ -145,8 +154,8 @@ DefaultTableModel model;
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(nbook, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(87, 87, 87)
+                .addComponent(nbook, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
@@ -159,8 +168,8 @@ DefaultTableModel model;
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                .addComponent(nbook, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+                .addComponent(nbook, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(58, 58, 58))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -190,6 +199,11 @@ DefaultTableModel model;
 
         nstudents.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         nstudents.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nstudents.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nstudentsMouseClicked(evt);
+            }
+        });
         jPanel3.add(nstudents, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 230, 150));
 
         jLabel5.setFont(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
@@ -200,6 +214,11 @@ DefaultTableModel model;
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 230, 190));
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel4MouseClicked(evt);
+            }
+        });
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel8.setBackground(new java.awt.Color(0, 0, 204));
@@ -219,7 +238,12 @@ DefaultTableModel model;
 
         isbook.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         isbook.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel4.add(isbook, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 240, 140));
+        isbook.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                isbookMouseClicked(evt);
+            }
+        });
+        jPanel4.add(isbook, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 80, 90));
 
         jLabel6.setBackground(new java.awt.Color(153, 153, 153));
         jLabel6.setFont(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
@@ -273,10 +297,34 @@ DefaultTableModel model;
     }//GEN-LAST:event_nbookKeyPressed
 
     private void nbookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nbookMouseClicked
-        bookdet bd = new bookdet();
-        bd.setVisible(true);
-        this.dispose();
+ bookdet stf = new bookdet();   
+  stf.setVisible(true);
+   JFrame mainFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+          mainFrame.dispose();
+
     }//GEN-LAST:event_nbookMouseClicked
+
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+ bookdet stf = new bookdet();   
+  stf.setVisible(true);
+   JFrame mainFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+          mainFrame.dispose();
+    }//GEN-LAST:event_jPanel2MouseClicked
+
+    private void isbookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_isbookMouseClicked
+   
+    }//GEN-LAST:event_isbookMouseClicked
+
+    private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
+    
+    }//GEN-LAST:event_jPanel4MouseClicked
+
+    private void nstudentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nstudentsMouseClicked
+        studentdet stf = new studentdet();   
+  stf.setVisible(true);
+   JFrame mainFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+          mainFrame.dispose();
+    }//GEN-LAST:event_nstudentsMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
