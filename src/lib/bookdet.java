@@ -110,11 +110,6 @@ DefaultTableModel model;
         search.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         search.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
         search.setPlaceholder("SEARCH");
-        search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchActionPerformed(evt);
-            }
-        });
         search.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 searchKeyReleased(evt);
@@ -126,11 +121,6 @@ DefaultTableModel model;
         FILTER.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 FILTERItemStateChanged(evt);
-            }
-        });
-        FILTER.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FILTERActionPerformed(evt);
             }
         });
         jPanel1.add(FILTER, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, 140, 30));
@@ -197,18 +187,10 @@ DefaultTableModel model;
         }
     }//GEN-LAST:event_rSMaterialButtonCircle3ActionPerformed
 
-    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchActionPerformed
-
     private void searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchKeyReleased
         String seachst = search.getText();
         search(seachst);
     }//GEN-LAST:event_searchKeyReleased
-
-    private void FILTERActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FILTERActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FILTERActionPerformed
 
     private void FILTERItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_FILTERItemStateChanged
      String qry = FILTER.getSelectedItem().toString();

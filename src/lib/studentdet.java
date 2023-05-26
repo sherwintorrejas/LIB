@@ -118,11 +118,6 @@ DefaultTableModel model;
         search.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         search.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
         search.setPlaceholder("SEARCH");
-        search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchActionPerformed(evt);
-            }
-        });
         search.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 searchKeyReleased(evt);
@@ -145,22 +140,12 @@ DefaultTableModel model;
                 FILTERItemStateChanged(evt);
             }
         });
-        FILTER.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FILTERActionPerformed(evt);
-            }
-        });
         jPanel1.add(FILTER, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 110, 140, 30));
 
         YRFILTER.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALL", "1ST", "2ND", "3RD", "4TH", " ", " " }));
         YRFILTER.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 YRFILTERItemStateChanged(evt);
-            }
-        });
-        YRFILTER.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                YRFILTERActionPerformed(evt);
             }
         });
         jPanel1.add(YRFILTER, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 110, 140, 30));
@@ -233,10 +218,6 @@ DefaultTableModel model;
         close();
     }//GEN-LAST:event_BACKActionPerformed
 
-    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchActionPerformed
-
     private void searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchKeyReleased
         String seachst = search.getText();
         search(seachst);
@@ -254,14 +235,6 @@ DefaultTableModel model;
             JOptionPane.showMessageDialog(this, "cannot print");
         }
     }//GEN-LAST:event_rSMaterialButtonCircle2ActionPerformed
-
-    private void FILTERActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FILTERActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FILTERActionPerformed
-
-    private void YRFILTERActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YRFILTERActionPerformed
-       
-    }//GEN-LAST:event_YRFILTERActionPerformed
 
     private void FILTERItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_FILTERItemStateChanged
      String qry = FILTER.getSelectedItem().toString();

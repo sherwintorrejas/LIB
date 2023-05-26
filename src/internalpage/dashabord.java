@@ -142,11 +142,6 @@ DefaultTableModel model;
                 nbookMouseClicked(evt);
             }
         });
-        nbook.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                nbookKeyPressed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -214,11 +209,6 @@ DefaultTableModel model;
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 230, 190));
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel4MouseClicked(evt);
-            }
-        });
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel8.setBackground(new java.awt.Color(0, 0, 204));
@@ -238,11 +228,6 @@ DefaultTableModel model;
 
         isbook.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         isbook.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        isbook.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                isbookMouseClicked(evt);
-            }
-        });
         jPanel4.add(isbook, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 80, 90));
 
         jLabel6.setBackground(new java.awt.Color(153, 153, 153));
@@ -292,10 +277,6 @@ DefaultTableModel model;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nbookKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nbookKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nbookKeyPressed
-
     private void nbookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nbookMouseClicked
  bookdet stf = new bookdet();   
   stf.setVisible(true);
@@ -310,14 +291,6 @@ DefaultTableModel model;
    JFrame mainFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
           mainFrame.dispose();
     }//GEN-LAST:event_jPanel2MouseClicked
-
-    private void isbookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_isbookMouseClicked
-   
-    }//GEN-LAST:event_isbookMouseClicked
-
-    private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
-    
-    }//GEN-LAST:event_jPanel4MouseClicked
 
     private void nstudentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nstudentsMouseClicked
         studentdet stf = new studentdet();   

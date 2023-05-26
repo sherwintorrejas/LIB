@@ -38,7 +38,7 @@ DefaultTableModel model;
   public void reset(){
    EN.setText("");
    EBT.setText("");
-   EG.setText("");
+   EG.setSelectedItem("0");
    ED.setText("");
    QUANT.setText("");
    }
@@ -75,7 +75,6 @@ DefaultTableModel model;
      public boolean validation(){
   String isbn= EN.getText();
 String tittle= EBT.getText();
-String genre= EG.getText();
 String edition= ED.getText();
 String quantity= ED.getText();
  if (isbn.equals("")){
@@ -84,10 +83,6 @@ String quantity= ED.getText();
  }
  if(tittle.equals("")){
  JOptionPane.showMessageDialog(this, "PLEASE ENTER BOOK TITTLE");
- return false;
- }
-if(genre.equals("")){
- JOptionPane.showMessageDialog(this, "PLEASE ENTER GENRE");
  return false;
  }     
  if(edition.equals("")){
@@ -116,7 +111,6 @@ if(genre.equals("")){
         EBT = new app.bolivia.swing.JCTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        EG = new app.bolivia.swing.JCTextField();
         ED = new app.bolivia.swing.JCTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -126,9 +120,9 @@ if(genre.equals("")){
         UPDATE = new necesario.RSMaterialButtonCircle();
         line = new javax.swing.JLabel();
         line1 = new javax.swing.JLabel();
-        line2 = new javax.swing.JLabel();
         line3 = new javax.swing.JLabel();
         line4 = new javax.swing.JLabel();
+        EG = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         BOOKDET = new rojeru_san.complementos.RSTableMetro();
@@ -183,20 +177,6 @@ if(genre.equals("")){
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("GENRE:");
         jPanel10.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 160, 32));
-
-        EG.setBackground(new java.awt.Color(204, 0, 0));
-        EG.setBorder(null);
-        EG.setForeground(new java.awt.Color(153, 255, 153));
-        EG.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        EG.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
-        EG.setOpaque(false);
-        EG.setPlaceholder("ENTER GENRE");
-        EG.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                EGKeyReleased(evt);
-            }
-        });
-        jPanel10.add(EG, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 270, -1));
 
         ED.setBackground(new java.awt.Color(204, 0, 0));
         ED.setBorder(null);
@@ -270,10 +250,6 @@ if(genre.equals("")){
         line1.setText("_____________________________________________");
         jPanel10.add(line1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 290, 30));
 
-        line2.setForeground(new java.awt.Color(25, 20, 20));
-        line2.setText("_____________________________________________");
-        jPanel10.add(line2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 290, 30));
-
         line3.setForeground(new java.awt.Color(25, 20, 20));
         line3.setText("_____________________________________________");
         jPanel10.add(line3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 290, 30));
@@ -281,6 +257,9 @@ if(genre.equals("")){
         line4.setForeground(new java.awt.Color(25, 20, 20));
         line4.setText("_____________________________________________");
         jPanel10.add(line4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 290, 30));
+
+        EG.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALL", "SCI-FI", "HORROR", "MYSTERY", "NOVEL", "FANTASY", "MATHIMATICS", "SCIENCE", "BIOLOGY", "TECHNOLOGY", " " }));
+        jPanel10.add(EG, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 280, 30));
 
         jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 540));
 
@@ -318,11 +297,6 @@ if(genre.equals("")){
         search.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         search.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
         search.setPlaceholder("SEARCH");
-        search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchActionPerformed(evt);
-            }
-        });
         search.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 searchKeyReleased(evt);
@@ -353,7 +327,7 @@ if(genre.equals("")){
 
         EN.setText(""+model.getValueAt(rowIndex, 0));
         EBT.setText(""+model.getValueAt(rowIndex, 1));
-        EG.setText(""+model.getValueAt(rowIndex, 2));
+        EG.setSelectedItem(""+model.getValueAt(rowIndex, 2));
         ED.setText(""+model.getValueAt(rowIndex, 3));
         QUANT.setText(""+model.getValueAt(rowIndex, 4));
         }
@@ -363,7 +337,7 @@ if(genre.equals("")){
         if(validation()== true){
             DBCONNECTOR dbc = new DBCONNECTOR();
         dbc.insertData("INSERT INTO book_details ( ISBN, TITTLE, GENRE, EDITION, QUANTITY) "
-                + "VALUES ('"+EN.getText()+"','"+EBT.getText()+"','"+EG.getText()+"','"+ED.getText()+"','"+QUANT.getText()+"')");
+                + "VALUES ('"+EN.getText()+"','"+EBT.getText()+"','"+EG.getSelectedItem()+"','"+ED.getText()+"','"+QUANT.getText()+"')");
         displayData();
         reset();
         }     
@@ -375,7 +349,7 @@ if(genre.equals("")){
       
       DBCONNECTOR dbc = new DBCONNECTOR();
         int num = dbc.updateData("UPDATE book_details SET TITTLE "
-                + "= '"+EBT.getText()+"', GENRE = '"+EG.getText()+"', EDITION "
+                + "= '"+EBT.getText()+"', GENRE = '"+EG.getSelectedItem()+"', EDITION "
                         + "= '"+ED.getText()+"', QUANTITY = '"+QUANT.getText()+"' WHERE ISBN = '"+EN.getText()+"'");
         if(num ==0){
         
@@ -428,10 +402,6 @@ if(genre.equals("")){
         }
     }//GEN-LAST:event_QUANTKeyPressed
 
-    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchActionPerformed
-
     private void searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchKeyReleased
         String seachst = search.getText();
         search(seachst);
@@ -457,13 +427,6 @@ if(genre.equals("")){
         
     }//GEN-LAST:event_EBTKeyReleased
 
-    private void EGKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EGKeyReleased
-    int pos = EG.getCaretPosition();
-        EG.setText(EG.getText().toUpperCase());
-        EG.setCaretPosition(pos);
-        
-    }//GEN-LAST:event_EGKeyReleased
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private necesario.RSMaterialButtonCircle ADD;
@@ -471,7 +434,7 @@ if(genre.equals("")){
     private necesario.RSMaterialButtonCircle DELETE;
     private app.bolivia.swing.JCTextField EBT;
     private app.bolivia.swing.JCTextField ED;
-    private app.bolivia.swing.JCTextField EG;
+    private javax.swing.JComboBox<String> EG;
     private app.bolivia.swing.JCTextField EN;
     private app.bolivia.swing.JCTextField QUANT;
     private necesario.RSMaterialButtonCircle UPDATE;
@@ -486,7 +449,6 @@ if(genre.equals("")){
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel line;
     private javax.swing.JLabel line1;
-    private javax.swing.JLabel line2;
     private javax.swing.JLabel line3;
     private javax.swing.JLabel line4;
     private necesario.RSMaterialButtonCircle rSMaterialButtonCircle2;

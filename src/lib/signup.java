@@ -187,11 +187,6 @@ if(contact.equals("")){
         PD.setOpaque(false);
         PD.setPhColor(new java.awt.Color(0, 0, 0));
         PD.setPlaceholder("ENTER PASSWORD");
-        PD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PDActionPerformed(evt);
-            }
-        });
         jPanel2.add(PD, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, -1, -1));
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -246,11 +241,6 @@ if(contact.equals("")){
                 UNFocusLost(evt);
             }
         });
-        UN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UNActionPerformed(evt);
-            }
-        });
         jPanel2.add(UN, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, -1, -1));
 
         EMAIL.setBackground(new java.awt.Color(246, 55, 55));
@@ -285,11 +275,6 @@ if(contact.equals("")){
         jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 200, 30));
 
         SIGN_UP.setText("SIGN UP");
-        SIGN_UP.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SIGN_UPMouseClicked(evt);
-            }
-        });
         SIGN_UP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SIGN_UPActionPerformed(evt);
@@ -301,11 +286,6 @@ if(contact.equals("")){
         LOG_IN.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 LOG_INMouseClicked(evt);
-            }
-        });
-        LOG_IN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LOG_INActionPerformed(evt);
             }
         });
         jPanel2.add(LOG_IN, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 360, 160, 50));
@@ -321,10 +301,6 @@ if(contact.equals("")){
         in.setVisible(true);
         this. dispose();    
     }//GEN-LAST:event_jLabel2MouseClicked
-
-    private void PDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PDActionPerformed
 
     private void LOGINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LOGINActionPerformed
       
@@ -352,10 +328,6 @@ if(contact.equals("")){
         // TODO add your handling code here:
     }//GEN-LAST:event_CONTACTActionPerformed
 
-    private void UNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UNActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UNActionPerformed
-
     private void SIGN_UPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SIGN_UPActionPerformed
         if(validation()== true){
       if(duplicateuser()== false){
@@ -368,24 +340,11 @@ if(contact.equals("")){
       
     }//GEN-LAST:event_SIGN_UPActionPerformed
 
-    private void SIGN_UPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SIGN_UPMouseClicked
-             JOptionPane.showMessageDialog(null,"SIGN UP SUCCESSFUL!!");
-        login in= new login();
-        in.setVisible(true);
-        this. dispose();
-    }//GEN-LAST:event_SIGN_UPMouseClicked
-
     private void LOG_INMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LOG_INMouseClicked
          login in= new login();
         in.setVisible(true);
         this. dispose();
     }//GEN-LAST:event_LOG_INMouseClicked
-
-    private void LOG_INActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LOG_INActionPerformed
-        login in= new login();
-        in.setVisible(true);
-        this. dispose();
-    }//GEN-LAST:event_LOG_INActionPerformed
 
     private void CONTACTKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CONTACTKeyPressed
            char c =evt.getKeyChar();

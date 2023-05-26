@@ -19,7 +19,9 @@ import javax.swing.table.TableModel;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.TableRowSorter;
 import net.proteanit.sql.DbUtils;
 public class vewrecs extends javax.swing.JInternalFrame {
 private Connection con;
@@ -114,6 +116,20 @@ DefaultTableModel model;
       
       }
   }
+  
+   public void filter(String qry ){
+             model = (DefaultTableModel) DETAILS.getModel();
+         TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
+         DETAILS.setRowSorter(trs);
+       
+         if(qry =="ALL"){
+        DETAILS.setRowSorter(trs);
+         }else{
+         trs.setRowFilter(RowFilter.regexFilter(qry));
+         }
+       
+       }
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -128,6 +144,7 @@ DefaultTableModel model;
         jScrollPane1 = new javax.swing.JScrollPane();
         DETAILS = new rojeru_san.complementos.RSTableMetro();
         rSMaterialButtonCircle1 = new necesario.RSMaterialButtonCircle();
+        FILTER = new javax.swing.JComboBox<>();
         jLabel16 = new javax.swing.JLabel();
         ddate = new com.toedter.calendar.JDateChooser();
         isdate = new com.toedter.calendar.JDateChooser();
@@ -176,7 +193,15 @@ DefaultTableModel model;
                 rSMaterialButtonCircle1ActionPerformed(evt);
             }
         });
-        jPanel10.add(rSMaterialButtonCircle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 0, 130, 40));
+        jPanel10.add(rSMaterialButtonCircle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 0, 130, 40));
+
+        FILTER.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALL", "RETURNED", "PENDING", " " }));
+        FILTER.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                FILTERItemStateChanged(evt);
+            }
+        });
+        jPanel10.add(FILTER, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, 160, 30));
 
         jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 870, 360));
 
@@ -252,9 +277,16 @@ DefaultTableModel model;
         }
     }//GEN-LAST:event_rSMaterialButtonCircle1ActionPerformed
 
+    private void FILTERItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_FILTERItemStateChanged
+          String qry = FILTER.getSelectedItem().toString();
+     
+        filter(qry);
+    }//GEN-LAST:event_FILTERItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rojeru_san.complementos.RSTableMetro DETAILS;
+    private javax.swing.JComboBox<String> FILTER;
     private necesario.RSMaterialButtonCircle SEARCH;
     private necesario.RSMaterialButtonCircle VIEWALL;
     private com.toedter.calendar.JDateChooser ddate;

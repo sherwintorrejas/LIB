@@ -240,16 +240,6 @@ String studenti = STUDid.getText();
         ISBN.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
         ISBN.setOpaque(false);
         ISBN.setPlaceholder("ENTER ISBN");
-        ISBN.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                ISBNFocusLost(evt);
-            }
-        });
-        ISBN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ISBNActionPerformed(evt);
-            }
-        });
         ISBN.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 ISBNKeyPressed(evt);
@@ -276,11 +266,6 @@ String studenti = STUDid.getText();
         STUDid.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
         STUDid.setOpaque(false);
         STUDid.setPlaceholder("ENTER STUDENT ID");
-        STUDid.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                STUDidFocusLost(evt);
-            }
-        });
         STUDid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 STUDidActionPerformed(evt);
@@ -330,24 +315,12 @@ String studenti = STUDid.getText();
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ISBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ISBNActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ISBNActionPerformed
-
     private void FINDETActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FINDETActionPerformed
     
         if(validation()== true){ 
             issuedbookdetails();
         }     
     }//GEN-LAST:event_FINDETActionPerformed
-
-    private void ISBNFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ISBNFocusLost
-     
-    }//GEN-LAST:event_ISBNFocusLost
-
-    private void STUDidFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_STUDidFocusLost
-       
-    }//GEN-LAST:event_STUDidFocusLost
 
     private void RETURNBOOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RETURNBOOKActionPerformed
       if(validation()== true){

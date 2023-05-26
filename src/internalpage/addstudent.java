@@ -466,11 +466,6 @@ String contact= ECT.getText();
         ECT.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
         ECT.setOpaque(false);
         ECT.setPlaceholder("ENTER CONTACT");
-        ECT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ECTActionPerformed(evt);
-            }
-        });
         ECT.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 ECTKeyPressed(evt);
@@ -515,11 +510,6 @@ String contact= ECT.getText();
         ID.setFont(new java.awt.Font("Sylfaen", 1, 15)); // NOI18N
         ID.setOpaque(false);
         ID.setPlaceholder("ENTER ID");
-        ID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                IDActionPerformed(evt);
-            }
-        });
         jPanel10.add(ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 180, 32));
 
         image.setBackground(new java.awt.Color(255, 255, 255));
@@ -543,16 +533,6 @@ String contact= ECT.getText();
         jPanel10.add(EY, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 150, 30));
 
         EC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BSBA", "BSIT", "BSHM", "BEED", "BED", "BSCRIM", "BSTM", " " }));
-        EC.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                ECItemStateChanged(evt);
-            }
-        });
-        EC.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ECActionPerformed(evt);
-            }
-        });
         jPanel10.add(EC, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 150, 30));
 
         jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 540));
@@ -568,11 +548,6 @@ String contact= ECT.getText();
         search.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         search.setFont(new java.awt.Font("Sylfaen", 1, 12)); // NOI18N
         search.setPlaceholder("SEARCH");
-        search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchActionPerformed(evt);
-            }
-        });
         search.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 searchKeyReleased(evt);
@@ -645,10 +620,6 @@ String contact= ECT.getText();
        }
     }//GEN-LAST:event_DELETEActionPerformed
 
-    private void IDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_IDActionPerformed
-
     private void ECTKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ECTKeyPressed
       char c =evt.getKeyChar();
         if(Character.isLetter(c)){
@@ -658,14 +629,6 @@ String contact= ECT.getText();
         EC.setEditable(true);
         } 
     }//GEN-LAST:event_ECTKeyPressed
-
-    private void ECTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ECTActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ECTActionPerformed
-
-    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchActionPerformed
 
     private void searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchKeyReleased
       String seachst = search.getText();
@@ -735,14 +698,6 @@ String contact= ECT.getText();
                     }
                 }
     }//GEN-LAST:event_browseActionPerformed
-
-    private void ECItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ECItemStateChanged
-       
-    }//GEN-LAST:event_ECItemStateChanged
-
-    private void ECActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ECActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ECActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

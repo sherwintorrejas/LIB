@@ -495,11 +495,6 @@ String studenti = studentid.getText();
                 isbnFocusLost(evt);
             }
         });
-        isbn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                isbnActionPerformed(evt);
-            }
-        });
         isbn.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 isbnKeyPressed(evt);
@@ -607,10 +602,6 @@ String studenti = studentid.getText();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void isbnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isbnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_isbnActionPerformed
 
     private void rSMaterialButtonCircle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle1ActionPerformed
       if(validation()==true){
