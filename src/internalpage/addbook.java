@@ -258,7 +258,7 @@ String quantity= ED.getText();
         line4.setText("_____________________________________________");
         jPanel10.add(line4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 290, 30));
 
-        EG.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALL", "SCI-FI", "HORROR", "MYSTERY", "NOVEL", "FANTASY", "MATHIMATICS", "SCIENCE", "BIOLOGY", "TECHNOLOGY", " " }));
+        EG.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SCI-FI", "HORROR", "MYSTERY", "NOVEL", "FANTASY", "MATHIMATICS", "SCIENCE", "BIOLOGY", "TECHNOLOGY", "" }));
         jPanel10.add(EG, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 280, 30));
 
         jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 540));

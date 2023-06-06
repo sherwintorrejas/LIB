@@ -337,18 +337,17 @@
             <Component class="javax.swing.JComboBox" name="EG">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="11">
-                    <StringItem index="0" value="ALL"/>
-                    <StringItem index="1" value="SCI-FI"/>
-                    <StringItem index="2" value="HORROR"/>
-                    <StringItem index="3" value="MYSTERY"/>
-                    <StringItem index="4" value="NOVEL"/>
-                    <StringItem index="5" value="FANTASY"/>
-                    <StringItem index="6" value="MATHIMATICS"/>
-                    <StringItem index="7" value="SCIENCE"/>
-                    <StringItem index="8" value="BIOLOGY"/>
-                    <StringItem index="9" value="TECHNOLOGY"/>
-                    <StringItem index="10" value=" "/>
+                  <StringArray count="10">
+                    <StringItem index="0" value="SCI-FI"/>
+                    <StringItem index="1" value="HORROR"/>
+                    <StringItem index="2" value="MYSTERY"/>
+                    <StringItem index="3" value="NOVEL"/>
+                    <StringItem index="4" value="FANTASY"/>
+                    <StringItem index="5" value="MATHIMATICS"/>
+                    <StringItem index="6" value="SCIENCE"/>
+                    <StringItem index="7" value="BIOLOGY"/>
+                    <StringItem index="8" value="TECHNOLOGY"/>
+                    <StringItem index="9" value=""/>
                   </StringArray>
                 </Property>
               </Properties>
